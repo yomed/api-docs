@@ -225,7 +225,7 @@ export const MarkdownStyles = styled.div`
     a {
         color: inherit;
     }
-    a,
+    a:not(.DocRefTag),
     ol a {
         color: #05f;
         transition: opacity 0.2s ease;
@@ -304,6 +304,10 @@ export const MarkdownStyles = styled.div`
 
     .lead.has-header {
         margin-bottom: 100px;
+    }
+
+    .DocRefTag {
+        color: #333;
     }
 
     /* Separators */
