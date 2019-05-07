@@ -32,7 +32,7 @@ import { Frame } from "framer"
 
 export function MyComponent() {
   return (
-    <Frame size={150} background={"#fff"} radius={20} />
+    <Frame size={150} background={"#fff"} radius={30} />
   )
 }
 ```
@@ -157,10 +157,10 @@ import { Frame, useCycle } from "framer"
 export function MyComponent() {
   const [animate, cycle] = useCycle(
     { scale: 1.5, rotate: 0 },
-    { scale: 1.0, rotate: 45 }
+    { scale: 1.0, rotate: 90 }
   )
 
-  return <Frame animate={animate} onTap={cycle} />
+  return <Frame animate={animate} onTap={() => cycle()} />
 }
 ```
 

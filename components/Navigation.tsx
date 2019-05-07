@@ -9,6 +9,7 @@ export const Navigation: React.FunctionComponent = () => {
             <MenuItem className="home" href="/pages/index.mdx" title="Introduction" />
             <MenuItem className="guide" href="/pages/tutorial.mdx" title="Tutorial" />
             <MenuItem className="examples" href="/pages/examples.mdx" title="Examples" />
+            <MenuItem className="guide" href="http://bit.ly/framer-react" title="ES6 and React" external />
 
             <SubTitle name="Library" />
             <MenuItem className="frame" href="/pages/frame.mdx" title="Frame" />

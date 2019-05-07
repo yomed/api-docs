@@ -4,7 +4,8 @@ import {
   Template,
   CTA,
   Header,
-  Callout,
+  EmbeddedVideo,
+  EmbeddedDemo,
 } from "../components"
 
 export default Template
@@ -19,15 +20,6 @@ export default Template
   for web and mobile.
 </span>
 
-<Callout>
-  <strong>Important:</strong> The new Library only works in
-  the latest{" "}
-  <a target="_blank" href="https://www.framer.com/beta">
-    Framer X Beta
-  </a>
-  .
-</Callout>
-
 </div>
 
 <Header />
@@ -36,7 +28,7 @@ export default Template
 
 ## Overview
 
-Framer provides helpers for advanced physics-based animation, complex touch-based gestures and common components for scrolling, paging and interface flows. It’s designed to allow beginners to explore digital product ideas without boundaries. It builds on the following technologies.
+Framer provides helpers for advanced physics-based animation, complex touch-based gestures and common components for scrolling, paging and interface flows. It’s designed to allow beginners to explore digital product ideas without boundaries. It builds on the following technologies. To learn more about these, be sure to check out our <a href="http://bit.ly/framer-react" target="_blank">ES6 and React</a> Guide too.
 
 </div>
 
@@ -80,6 +72,8 @@ type CardProps = { title: string }
 
 ## Quick Start
 
+### Installation
+
 The Framer API was designed to work closely with [Framer X](https://framer.com), but is great as a standalone library. You can install it via [npm](https://www.npmjs.com/), via your Command Line.
 
 ```tsx
@@ -87,12 +81,46 @@ The Framer API was designed to work closely with [Framer X](https://framer.com),
 npm install framer
 ```
 
+### Importing
+
 Once installed, you can import Framer into your files.
 
 ```tsx
 // Import from Framer
 import { Frame, Scroll, useCycle } from "framer"
 ```
+
+---
+
+### Framer X
+
+<div>
+
+To learn how to start using the Framer API within Framer X, you can watch this short **Framer Playground** video tutorial. It covers the following topics.
+
+- How to create new code components.
+- Where code components live.
+- How to preview code components.
+- How previewing works.
+- How error handling works.
+
+<CTA
+  name="Download Framer X"
+  link="https://www.framer.com/"
+/>
+
+</div>
+
+<EmbeddedVideo>
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/YSLU5KCiZWE"
+    frameborder="0"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  />
+</EmbeddedVideo>
 
 ---
 

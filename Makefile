@@ -75,8 +75,7 @@ data: components/framer.data.ts
 
 .PHONY: data-update
 data-update:
-	# TODO: Update to @latest when Framer library 1.0 ships
-	@yarn add framer@beta
+	@yarn add framer@latest
 	@yarn add framer-motion@latest
 	@make data
 
