@@ -3265,10 +3265,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-framer-motion@^0.16.10:
-  version "0.16.10"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-0.16.10.tgz#b83e78586cd48046db24d4c453a9fa30e496c4b6"
-  integrity sha512-xUs/QRclMpgKBXA99m6oUBTSCKOKbDVwEGVnJfGlANB7oGddKho7CqK4Q8dtiNYGYyUO652XdWnc953YY4r+uA==
+framer-motion@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-0.18.0.tgz#7d269f95d280721486de206f412aa76f9f9e7114"
+  integrity sha512-hpfhRZlUrauBNQZVbWXq2crvpS16vQ7hRv2EY858fL9/E1LdBZwKNXgB0wwTz74aUzJpj5aWf3g3S2BMRAcHFQ==
   dependencies:
     "@emotion/is-prop-valid" "^0.7.3"
     "@popmotion/popcorn" "^0.4.0"
@@ -3278,10 +3278,10 @@ framer-motion@^0.16.10:
     style-value-types "^3.1.4"
     stylefire "^4.1.4"
 
-framer@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/framer/-/framer-1.0.2.tgz#9d9a523e00f1e2b059f2b0b3ad850ff468fc53fe"
-  integrity sha512-/EenhGgBTZA7CxmrUEz/8lCLVCs/BhbsUy+avGmxUbaZugOv7D4iJ9e44pYqqHpeDsAs8ulHUhrknp3RHxDrrA==
+framer@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/framer/-/framer-1.0.7.tgz#98ab6495d10fe97125bc9acf0f28943e95996add"
+  integrity sha512-Yjgj7PN2aZug+eJ8OU9SBCaQ9xQZGFHgIMu8Y780I8a1lHX2RL5cpYlEJijjBn3Yf5Ypn334bWS3cKpNLSbU6g==
   dependencies:
     style-value-types "^3.1.4"
 

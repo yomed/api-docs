@@ -34,7 +34,7 @@ import * as React from "react"
 import { Button } from "./canvas"
 
 export function MyComponent() {
-  return <Button title="Login" />
+  return <Button title={"Login"} />
 }
 ```
 
@@ -66,8 +66,8 @@ export function MyComponent() {
     <Profile
       width={200}
       height={200}
-      name="Harry"
-      image="harry.jpg"
+      name={"Harry"}
+      image={"harry.jpg"}
     />
   )
 }
@@ -86,8 +86,57 @@ import { Card } from "./canvas"
 export function MyComponent() {
   return (
     <div style={{ width: 200, height: 200 }}>
-      <Card size="100%" />
+      <Card size={"100%"} />
     </div>
+  )
+}
+```
+
+---
+
+## Colors
+
+<div>
+
+[Shared colors](http://framer.com/docs/shared-colors) from your Canvas can also be imported and used in Code. In this example, we’re importing a color that we’ve named `Primary` in the Color Picker, and we’re using it to set the background of a `Frame`. Please note that we manage the colors using CSS variables, so they can’t be transformed using the `Color()` function at the moment.
+
+**Note**: For prototyping, using code-friendly names is encouraged, such as `accentColor`. If your shared color names do contain spaces, you can reference those by using the bracket notation: `colors["Accent Color"]`.
+
+</div>
+
+```jsx
+import * as React from "react"
+import { Frame } from "framer"
+import { colors } from "./canvas"
+
+export function MyComponent() {
+  return <Frame backgroundColor={colors.Primary} />
+}
+```
+
+---
+
+### Animating Colors
+
+Imported shared colors can also be animated, just like any other color. In this example, we’re cycling between two imported colors on tap.
+
+```jsx
+import * as React from "react"
+import { Frame, useCycle } from "framer"
+import { colors } from "./canvas"
+
+export function MyComponent() {
+  const [flip, cycle] = useCycle(
+    { backgroundColor: colors.Primary },
+    { backgroundColor: colors.Secondary }
+  )
+
+  return (
+    <Frame
+      backgroundColor={colors.Primary}
+      animate={flip}
+      onTap={() => cycle()}
+    />
   )
 }
 ```
