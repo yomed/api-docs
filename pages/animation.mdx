@@ -249,36 +249,36 @@ const list = {
 
 Variants can be set as functions to dynamically generate variant settings. When a component animates to a dynamic variant, it’ll pass its own props to that function, allowing each component to get a modified animation.
 
-Here, we create a staggered animation by passing along the `index` property to each `Frame`, and in the `variant` definition. All Frames share the same `variants` object, and animate to the same `hidden` variant—they only differ in their indices.
+Here, we create a staggered animation by passing along the `custom` property to each `Frame`, and in the `variant` definition. All Frames share the same `variants` object, and animate to the same `hidden` variant—they only differ in their indices.
 
 </div>
 
 ```javascript
 export function MyComponent() {
   const variants = {
-    hidden: ({ index }) => ({
+    hidden: index => ({
       opacity: 0,
       transition: { delay: index * 0.05 },
     }),
   }
   return (
-    <Frame>
+    <Stack>
       <Frame
-        index={0}
+        custom={0}
         variants={variants}
-        animate="hidden"
+        animate={"hidden"}
       />
       <Frame
-        index={1}
+        custom={1}
         variants={variants}
-        animate="hidden"
+        animate={"hidden"}
       />
       <Frame
-        index={2}
+        custom={2}
         variants={variants}
-        animate="hidden"
+        animate={"hidden"}
       />
-    </Frame>
+    </Stack>
   )
 }
 ```
