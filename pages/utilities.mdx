@@ -68,13 +68,13 @@ export function MyComponent() {
 <div>
 
 You can also use this hook to convert ranges of numeric values based on user input.
-In this example, we `Frame` that is horizontally draggable.
+In this example, we create a `Frame` that is horizontally draggable.
 
 The `x` value starts at `0`, and we’re converting the horizontal movement of the `Frame` from `0 - 200` into `1 - 0.5`, a range that is acceptable for `scale`. Both the `x` and the `scale` values then get set on the `Frame`, too.
 
 </div>
 
-```jsx highlight(2-6, 9-10, 12)
+```jsx highlight(2, 5-6, 8)
 import * as React from "react"
 import { Frame, useMotionValue, useTransform } from "framer"
 
@@ -199,7 +199,13 @@ controls.stop()
 
 ## useCycle
 
-<APIFunction name="useCycle()" overrides={{signature: "useCycle(c1, c2, ...): [currentState, cycleState]"}} />
+<APIFunction
+  name="useCycle()"
+  overrides={{
+    signature:
+      "useCycle(c1, c2, ...): [currentState, cycleState]",
+  }}
+/>
 
 ---
 
