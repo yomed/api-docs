@@ -5,6 +5,7 @@ import {
   APIFunction,
   APIInterface,
   Template,
+  Callout,
 } from "../components"
 
 export default Template
@@ -20,6 +21,13 @@ export default Template
 
 The Data objects behaves like a simple JavaScript object in which you can store anything.
 It updates the user interface of your project on every change, and can be used to share data between components and Frames. In this example, we’re simply changing the `text` property of any text layer the override gets applied to. <a href="https://www.framer.com/docs/overrides">Learn more about Overrides</a>.
+
+<br />
+
+<Callout>
+  Data objects are intended for Overrides only and not for
+  use in components in Framer X.
+</Callout>
 
 </div>
 
@@ -47,9 +55,7 @@ Finally, the `data.rotate` value gets incremented by `90` on every tap.
 ```jsx
 import { Data, Override } from "framer"
 
-const data = Data({
-  rotate: 0,
-})
+const data = Data({ rotate: 0 })
 
 export function Rotate(): Override {
   return {
