@@ -12,8 +12,9 @@ export default Template
 # Assets
 
 <span className="lead">
-  Using the <strong>framer/resources</strong> module you can reference any files included in
-  your Framer project from within your code component.
+  Using the <strong>framer/resources</strong> module you can
+  reference any files included in your Framer project from
+  within your code component.
 </span>
 
 Components can use the `url()` function to create a URL that will reference any
@@ -35,20 +36,30 @@ Generates a URL for the path provided that will work regardless of where
 the component is being used (for example, in the Canvas, Preview or Export).
 
 <APIParams>
-    <APIParam name="path" type="string"><p>A path to a file within the current project relative to the folder root.</p></APIParam>
-    <APIParam name="returns" type="string"><p>A path to a file within the current project relative to the folder root.</p></APIParam>
+  <APIParam name="path" type="string">
+    <p>
+      A path to a file within the current project relative
+      to the folder root.
+    </p>
+  </APIParam>
+  <APIParam name="returns" type="string">
+    <p>
+      A path to a file within the current project relative
+      to the folder root.
+    </p>
+  </APIParam>
 </APIParams>
 
 </div>
 
-```jsx highlight(3,6)
+```jsx highlight(3,7)
 import * as React from "react"
 import { Frame } from "framer"
 import { url } from "framer/resource"
 
-export const MyComponent = () => {
-    return <Frame image={url("./code/test.png")} size={"100%"} />
+export function MyComponent() {
+  return (
+    <Frame image={url("./code/test.png")} size={"100%"} />
+  )
 }
 ```
-
-
