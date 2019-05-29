@@ -1,0 +1,54 @@
+<!-- 👋 Editing this file? Need help? → https://github.com/framer/api-docs/blob/master/CONTRIBUTING.md -->
+
+import {
+  Template,
+  H3,
+  APIParam,
+  APIParams,
+} from "../components"
+
+export default Template
+
+# Assets
+
+<span className="lead">
+  Using the <strong>framer/resources</strong> module you can reference any files included in
+  your Framer project from within your code component.
+</span>
+
+Components can use the `url()` function to create a URL that will reference any
+file within your Framer project. This is particularly useful for including
+images and other media from code.
+
+---
+
+## Functions
+
+<div class="framer-api framer-function">
+
+<H3 id="url"><code class="language-typescript">url(path: string): string</code></H3>
+
+</div>
+<div>
+
+Generates a URL for the path provided that will work regardless of where
+the component is being used (for example, in the Canvas, Preview or Export).
+
+<APIParams>
+    <APIParam name="path" type="string"><p>A path to a file within the current project relative to the folder root.</p></APIParam>
+    <APIParam name="returns" type="string"><p>A path to a file within the current project relative to the folder root.</p></APIParam>
+</APIParams>
+
+</div>
+
+```jsx highlight(3,6)
+import * as React from "react"
+import { Frame } from "framer"
+import { url } from "framer/resource"
+
+export const MyComponent = () => {
+    return <Frame image={url("./code/test.png")} size={"100%"} />
+}
+```
+
+
