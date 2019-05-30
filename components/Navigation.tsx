@@ -16,6 +16,7 @@ export const Navigation: React.FunctionComponent = () => {
 
             <MenuItem className="animation" href="/pages/animation.mdx" title="Animation" />
             <MenuItem className="color" href="/pages/color.mdx" title="Color" />
+            <MenuItem className="stack" href="/pages/easing.mdx" title="Easing" />
             <MenuItem className="page" href="/pages/page.mdx" title="Page" />
             <MenuItem className="scroll" href="/pages/scroll.mdx" title="Scroll" />
             <MenuItem className="stack" href="/pages/stack.mdx" title="Stack" />

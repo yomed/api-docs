@@ -1,0 +1,84 @@
+<!-- 👋 Editing this file? Need help? → https://github.com/framer/api-docs/blob/master/CONTRIBUTING.md -->
+<!-- TODO: Live easing gallery and cubic bezier editor -->
+
+import {
+  APIClass,
+  APIVariable,
+  APIFunction,
+  APIMethod,
+  APIInterface,
+  APIProperty,
+  APIMergedInterface,
+  Template,
+  Link,
+  Ref,
+  Callout,
+  Todo,
+} from "../components"
+
+export default Template
+
+# Easing
+
+<span className="lead">
+  A set of functions for adjusting the feel of tween
+  animations.
+</span>
+
+<div>
+
+[Tween animations](/api/animation/#tween) represent their progress as a value from `0` to `1`. If we pass this value to an easing function, we can adjust it to change the animation in different ways as it progresses.
+
+For instance, with the `Easing.expoOut` easing, we can start the animation fast and finish it slow. This kind of easing is useful for replicating natural motion.
+
+</div>
+
+```jsx
+import * as React from "react"
+import { Frame, Easing } from "framer"
+
+export function MyComponent() {
+  return (
+    <Frame
+      animate={{ rotate: 360 }}
+      transition={{ ease: Easing.steps(5) }}
+    />
+  )
+}
+```
+
+---
+
+## Easing functions
+
+<APIVariable name="expoIn" />
+<APIVariable name="expoOut" />
+<APIVariable name="expoInOut" />
+<APIVariable name="backIn" />
+<APIVariable name="backOut" />
+<APIVariable name="backInOut" />
+<APIVariable name="anticipate" />
+<APIVariable name="bounceIn" />
+<APIVariable name="bounceOut" />
+<APIVariable name="bounceInOut" />
+<APIVariable name="circIn" />
+<APIVariable name="circOut" />
+<APIVariable name="circInOut" />
+<APIVariable name="linear" />
+
+## Creators
+
+Easing creator functions take easing functions
+
+<APIFunction name="cubicBezier" />
+<APIFunction name="steps" />
+<APIFunction name="createAnticipate" />
+<APIFunction name="createBackIn" />
+<APIFunction name="createExpoIn" />
+
+## Modifiers
+
+Easing modifiers take existing easing functions and return new versions of them.
+
+<APIFunction name="mirror" />
+<APIFunction name="reverse" />
