@@ -66,7 +66,7 @@ for other parts of the codebase are most welcome.
 To run the test suite:
 
     % yarn jest
-    
+
 This will also be run by CircleCI on each commit and open Pull Request. CircleCI will
 also make a rudimentary check for missing models referenced by the API docs. The build
 output will contain logs with the broken reference ids.
@@ -81,7 +81,7 @@ push directly to this repository) and open a Pull Request describing the changes
 ## Deployment
 
 Deployment is managed by [Netlify][#netlify]. On each commit to the master branch Netlify
-will rebuild changes and publish. Netlify will also generate a build for any pull requests 
+will rebuild changes and publish. Netlify will also generate a build for any pull requests
 created and add a link via the comments. The [netlify.toml](./netlify.toml) file contains
 the build and routing configuration for Netlify.
 
@@ -95,11 +95,9 @@ This will output the static HTML/CSS and JavaScript into a build directory in th
 
 ## Framer API Data
 
-The project makes use of the **framer.api.json** file bundled with each release of the "framer" 
+The project makes use of the **framer.api.json** file bundled with each release of the "framer"
 and "framer-motion" packages. Both of these packages are installed as dependencies and we currently
 always track the latest release.
-
-
 
 in the FramerStudio repository from this we extract the useful information used by our Framer API
 components. This is then transformed into a **framer.data.ts** package that is used by the
@@ -131,3 +129,9 @@ node_modules. To reference a different install of either of these packages you c
 paths to make:
 
     % make data FRAMER_LIBRARY_DIR=../some/path/to/Library FRAMER_MOTION_DIR=../some/path/to/motion
+
+## Upgrading
+
+To add support for custom `@prototype` and `@production` block types, we use the undocumented process of monkey-patching the `AedocDefinitions` class within `api-extractor-model`. This is then consumed by `api-extractor`.
+
+Ensure that when updating `@microsoft/tsdocs`, `@microsoft/api-extractor-model` and/or `@microsoft/api-extractor` that all three packages are the latest version and that none of them install extra versions of the others to solve a minor version discrepancy. Otherwise the monkey-patch might be applied to an un-used version of `AedocDefinitions`.

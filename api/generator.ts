@@ -21,6 +21,9 @@ import * as assert from "assert"
 import { ApiModel, ReleaseTag as ApiReleaseTag } from "@microsoft/api-extractor-model"
 import { walk } from "./walker"
 import { RawAPIData, Kind, AnyRawModel } from "./types"
+import { patchAPIExtractorWithCustomTSDocTags } from "./custom-blocks"
+
+patchAPIExtractorWithCustomTSDocTags()
 
 function usage() {
     console.log(`Usage:\n    ${path.basename(process.argv[1])} <input1>[, <input2>]\n`)
@@ -46,6 +49,7 @@ function processInput(filepath: string): RawAPIData {
     assert.equal(pkg.entryPoints.length, 1, "Only support a single entry point at the moment")
 
     const map: RawAPIData = {}
+
     walk(pkg.entryPoints[0], ApiReleaseTag.Beta, item => {
         type PartialRawAPIData = { [key: string]: { model?: AnyRawModel; children: PartialRawAPIData } }
         const keys = item.id.split(".")

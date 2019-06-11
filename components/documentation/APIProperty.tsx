@@ -45,6 +45,7 @@ export const APIProperty: React.FunctionComponent<{
     const api = React.useContext(FramerAPIContext)
 
     const model = api.resolve(props.name, Kind.Property)
+
     if (!model) return <MissingModelWarning name={props.name} kind={Kind.Property} />
 
     return (

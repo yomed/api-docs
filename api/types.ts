@@ -57,6 +57,8 @@ export interface BaseModel {
     signature: string | null
     summaryMarkup: string | null
     remarksMarkup: string | null
+    prototypeMarkup: string | null
+    productionMarkup: string | null
     deprecatedMarkup: string | null
     visibility: "public" | "beta" | "alpha" | "internal" | "none"
 }

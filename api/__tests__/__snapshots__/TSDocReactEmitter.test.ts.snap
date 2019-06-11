@@ -177,6 +177,20 @@ Array [
 ]
 `;
 
+exports[`TSDocReactEmitter renders a custom tag 1`] = `
+Array [
+  <p>
+    Hello prototype
+  </p>,
+  <p>
+    Hello production
+  </p>,
+  <p>
+    Hello World
+  </p>,
+]
+`;
+
 exports[`TSDocReactEmitter renders a list of items using asterisks 1`] = `
 Array [
   <p>
