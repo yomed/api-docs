@@ -2,9 +2,10 @@ import * as React from "react"
 import * as renderer from "react-test-renderer"
 import { TSDocParser } from "@microsoft/tsdoc"
 import { renderTSDoc } from "../TSDocReactEmitter"
+import { configuration } from "../custom-blocks"
 
 function createTestComponent(doc: string): renderer.ReactTestRenderer {
-    const parser = new TSDocParser()
+    const parser = new TSDocParser(configuration)
     const parsed = parser.parseString(doc)
     const element = renderTSDoc(parsed.docComment, React)
     if (!React.isValidElement(element)) throw new Error("renderTSDoc did not return an element")
@@ -24,6 +25,34 @@ describe("TSDocReactEmitter", () => {
         const component = createTestComponent(`
         /**
          * Hello World
+         */`)
+        expect(component.toJSON()).toMatchSnapshot()
+    })
+
+    test("renders a custom tag", () => {
+        /**
+         * If this snapshot test fails, you've probably upgraded one or more of:
+         *  - @microsoft/tsdocs
+         *  - @microsoft/api-extractor
+         *  - @microsoft/api-extractor-model
+         *
+         * The first thing to check is that they're all referencing each other correctly. If
+         * any of them reference a version of any of the others that is different than the one
+         * we've specified, tsdocs is probably using a different version of AedocDefinitions.
+         *
+         * Upgrading them all to the latest version is probably the best approach.
+         *
+         * There may also be an official API to add custom block support in later versions.
+         */
+        const component = createTestComponent(`
+        /**
+         * Hello World
+         * 
+         * @library
+         * Hello prototype
+         * 
+         * @motion
+         * Hello production
          */`)
         expect(component.toJSON()).toMatchSnapshot()
     })

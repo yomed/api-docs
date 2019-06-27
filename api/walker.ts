@@ -241,6 +241,8 @@ function toParameter(method: ApiMethod | ApiMethodSignature | ApiFunction, param
         type: param.parameterTypeExcerpt.text,
         summaryMarkup: summaryMarkup,
         remarksMarkup: null,
+        prototypeMarkup: null,
+        productionMarkup: null,
     }
 }
 
@@ -269,18 +271,33 @@ function extractTSDoc(
     remarksMarkup: string | null
     tsdoc: string | null
     deprecatedMarkup: string | null
+    productionMarkup: string | null
+    prototypeMarkup: string | null
 } {
     if (item instanceof ApiDocumentedItem && item.tsdocComment) {
         const tsdoc = item.tsdocComment
+        const getCustomBlock = (tagName: string) =>
+            tsdoc.customBlocks.filter(x => x.blockTag.tagNameWithUpperCase === tagName).map(renderTSDocToHTML)[0] ||
+            null
+
         return {
             tsdoc: tsdoc.emitAsTsdoc(),
             summaryMarkup: renderTSDocToHTML(tsdoc.summarySection) || null,
-            remarksMarkup: renderTSDocToHTML(tsdoc.remarksBlock) || null,
+            remarksMarkup: renderTSDocToHTML(tsdoc.remarksBlock),
+            prototypeMarkup: getCustomBlock("@LIBRARY"),
+            productionMarkup: getCustomBlock("@MOTION"),
             deprecatedMarkup: renderTSDocToHTML(tsdoc.deprecatedBlock) || null,
         }
     }
 
-    return { summaryMarkup: null, tsdoc: null, remarksMarkup: null, deprecatedMarkup: null }
+    return {
+        summaryMarkup: null,
+        tsdoc: null,
+        remarksMarkup: null,
+        prototypeMarkup: null,
+        productionMarkup: null,
+        deprecatedMarkup: null,
+    }
 }
 
 function toKind(item: ApiItem): Kind {

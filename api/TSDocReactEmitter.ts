@@ -4,6 +4,7 @@ import {
     DocNode,
     DocNodeKind,
     DocBlock,
+    DocBlockTag,
     DocCodeSpan,
     DocComment,
     DocDeclarationReference,
@@ -119,10 +120,12 @@ function render<T>(docNode: DocNode | undefined, { createElement, Fragment }: Li
     // We use the `key` attribute to tag the fragments to help identify the type of
     // DocNodeKind that created it for debugging.
     const kind = docNode.kind as DocNodeKind
+
     switch (kind) {
         // A semantic group of content denoted by a block tag
         case DocNodeKind.Block:
             const docBlock: DocBlock = docNode as DocBlock
+
             return createElement(Fragment, { key: "DocBlock" }, renderNode(docBlock.content))
 
         // A block tag, e.g. @remarks or @example
@@ -138,6 +141,7 @@ function render<T>(docNode: DocNode | undefined, { createElement, Fragment }: Li
         case DocNodeKind.Comment:
             const docComment: DocComment = docNode as DocComment
             const content = renderNodes([
+                ...docComment.customBlocks,
                 docComment.summarySection,
                 docComment.remarksBlock,
                 docComment.privateRemarks,
@@ -145,7 +149,6 @@ function render<T>(docNode: DocNode | undefined, { createElement, Fragment }: Li
                 docComment.params,
                 docComment.typeParams,
                 docComment.returnsBlock,
-                ...docComment.customBlocks,
                 docComment.inheritDocTag,
             ])
             if (docComment.modifierTagSet.nodes.length > 0) {
@@ -191,7 +194,7 @@ function render<T>(docNode: DocNode | undefined, { createElement, Fragment }: Li
                     "code",
                     {
                         "data-lang": docFencedCode.language,
-                        className: `language-${docFencedCode.language} line-numbers`,
+                        className: `language-${docFencedCode.language}`,
                     },
                     docFencedCode.code
                 )

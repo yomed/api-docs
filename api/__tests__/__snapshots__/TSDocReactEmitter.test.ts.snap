@@ -71,7 +71,7 @@ Array [
     className="DocFencedCode"
   >
     <code
-      className="language-jsx line-numbers"
+      className="language-jsx"
       data-lang="jsx"
     >
       // Default
@@ -167,13 +167,27 @@ Array [
     className="DocFencedCode"
   >
     <code
-      className="language-jsx line-numbers"
+      className="language-jsx"
       data-lang="jsx"
     >
       const foo = "bar";
 
     </code>
   </pre>,
+]
+`;
+
+exports[`TSDocReactEmitter renders a custom tag 1`] = `
+Array [
+  <p>
+    Hello prototype
+  </p>,
+  <p>
+    Hello production
+  </p>,
+  <p>
+    Hello World
+  </p>,
 ]
 `;
 
