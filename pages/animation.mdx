@@ -256,9 +256,9 @@ Here, we create a staggered animation by passing along the `custom` property to 
 ```javascript
 export function MyComponent() {
   const variants = {
-    hidden: index => ({
+    hidden: custom => ({
       opacity: 0,
-      transition: { delay: index * 0.05 },
+      transition: { delay: custom * 0.5 },
     }),
   }
   return (
