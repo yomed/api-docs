@@ -18,7 +18,10 @@ jobs:
           name: verify-api-references
           command: |
             make verify-api-references
-            
       - store_artifacts:
           path: ~/repo/build
-
+workflows:
+  version: 2
+  "Build":
+    jobs:
+      - build
