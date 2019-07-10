@@ -1,0 +1,370 @@
+<!-- 👋 Editing this file? Need help? → https://github.com/framer/api-docs/blob/master/CONTRIBUTING.md -->
+
+import {
+  Template,
+  Button,
+  EmbeddedExample,
+} from "../../components"
+
+import {
+  AnimationBasicExample,
+  AnimationKeyframesExample,
+  AnimationVariantsExample,
+  GestureAnimationShortcuts,
+  GestureDrag,
+  MotionValueSVG,
+  MotionValueUseSpring,
+  ViewportScroll,
+  PositionTransition,
+  AnimatePresenceExample,
+} from "../../components/examples/motion"
+
+export default Template("Examples")
+
+# Examples
+
+<span className="lead">
+  Simple examples for animation, gestures, components,
+  transforms and more.
+</span>
+
+---
+
+## Animation
+
+<div>
+
+The `animate` prop can accept an object of values. When one of them changes, the `motion` component will automatically animate to the new state.
+
+The animation used can be configured using the `transition` prop.
+
+<Button
+  name="Open sandbox"
+  link="https://codesandbox.io/s/framer-motion-simple-animation-fz7cz?fontsize=14&module=%2Fsrc%2FExample.tsx"
+/>
+
+</div>
+
+<EmbeddedExample background="#05f">
+  <AnimationBasicExample />
+</EmbeddedExample>
+
+```jsx highlight(4-7)
+import { motion } from "framer-motion"
+
+export const MyComponent = () => (
+  <motion.div
+    animate={{ scale: 2 }}
+    transition={{ duration: 0.5 }}
+  />
+)
+```
+
+---
+
+## Keyframes
+
+<div>
+
+Set a value as an array and Motion will animate through each of these values in turn.
+
+By default, each keyframe will be spaced evenly throughout the animation, but the exact timing and easing can be configured via the `transition` property.
+
+<Button
+  name="Open sandbox"
+  link="https://codesandbox.io/s/framer-motion-keyframes-ekks8?fontsize=14&module=%2Fsrc%2FExample.tsx"
+/>
+
+</div>
+
+<EmbeddedExample background="#05f">
+  <AnimationKeyframesExample />
+</EmbeddedExample>
+
+```jsx highlight(5-9)
+import { motion } from "framer-motion"
+
+export const MyComponent = () => (
+  <motion.div
+    animate={{
+      scale: [1, 2, 2, 1, 1],
+      rotate: [0, 0, 270, 270, 0],
+      borderRadius: ["20%", "20%", "50%", "50%", "20%"],
+    }}
+  />
+)
+```
+
+---
+
+## Variants
+
+<div>
+
+Variants are pre-defined visual states that a component can be in. By giving a component and its children `variants` with matching names, whole React trees can be animated by changing a single prop.
+
+By using variants, a parent can easily orchestrate the animations of its children with special `transition` props like `staggerChildren`.
+
+Variants can also be dynamic functions that return different props based on data passed to each component's `custom` prop.
+
+<Button
+  name="Open sandbox"
+  link="https://codesandbox.io/s/framer-motion-side-menu-mx2rw?fontsize=14&module=%2Fsrc%2FExample.tsx"
+/>
+
+</div>
+
+<EmbeddedExample background="#05f">
+  <AnimationVariantsExample />
+</EmbeddedExample>
+
+```jsx highlight(3-7,13-14)
+import { motion } from "framer-motion"
+
+const variants = {
+  open: { opacity: 1, x: 0 },
+  closed: { opacity: 0, x: "-100%" },
+}
+
+export const MyComponent = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <motion.nav
+      animate={isOpen ? "open" : "closed"}
+      variants={variants}
+    >
+      <Toggle onClick={() => setIsOpen(!isOpen)} />
+      <Items />
+    </motion.nav>
+  )
+}
+```
+
+---
+
+## Gesture animations
+
+<div>
+
+Motion provides `whileHover` and `whileTap` helper props, that will temporarily animate a component to a visual state while a gesture is active.
+
+Like `animate`, these can either be set as an object of properties (each with their own `transition` prop), or the name of a variant.
+
+Motion will also automatically handle the interplay of the two gestures, so if a component is being pressed while a hover gestures starts/stops, the `whileTap` gesture will take priority.
+
+<Button
+  name="Open sandbox"
+  link="https://codesandbox.io/s/framer-motion-gesture-animations-8c5y3?fontsize=14&module=%2Fsrc%2FExample.tsx"
+/>
+
+</div>
+
+<EmbeddedExample background="#05f">
+  <GestureAnimationShortcuts />
+</EmbeddedExample>
+
+```jsx highlight(5-6)
+import { motion } from "framer-motion"
+
+export const MyComponent = () => (
+  <motion.button
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.9 }}
+  />
+)
+```
+
+---
+
+## Drag
+
+<div>
+
+A component can be made draggable with the addition of the `drag` prop. Lock it to either axis by setting `drag` to `"x"` or `"y"`.
+
+The component can be constrained to a specific range, defined either in pixels, or by providing a `ref` to another DOM element.
+
+These constraints are elastic, and the strength of this elasticity can be configured with the `dragElastic` prop.
+
+<Button
+  name="Open sandbox"
+  link="https://codesandbox.io/s/framer-motion-drag-with-constraints-pjn6t?fontsize=14&module=%2Fsrc%2FExample.tsx"
+/>
+
+</div>
+
+<EmbeddedExample background="#05f">
+  <GestureDrag />
+</EmbeddedExample>
+
+```jsx highlight(5-11)
+import { motion } from "framer-motion"
+
+export const MyComponent = () => (
+  <motion.div
+    drag
+    dragConstraints={{
+      top: -50,
+      left: -50,
+      right: 50,
+      bottom: 50,
+    }}
+  />
+)
+```
+
+---
+
+## MotionValues
+
+<div>
+
+Motion uses `MotionValue`s to track the state and velocity of every animating value.
+
+By making `MotionValue`s yourself, you can create declarative chains of values that map from one into the other.
+
+<Button
+  name="Open sandbox"
+  link="https://codesandbox.io/s/framer-motion-path-drawing-drag-and-usetransform-jnqk2?fontsize=14&module=%2Fsrc%2FExample.tsx"
+/>
+
+</div>
+
+<EmbeddedExample background="#05f">
+  <MotionValueSVG />
+</EmbeddedExample>
+
+```jsx highlight(8-13)
+import {
+  motion,
+  useMotionValue,
+  useTransform,
+} from "framer-motion"
+
+export const MyComponent = () => {
+  const x = useMotionValue(0)
+  const background = useTransform(
+    x,
+    [-100, 0, 100],
+    ["#ff008c", "#7700ff", "rgb(230, 255, 0)"]
+  )
+
+  return (
+    <motion.div style={{ background }}>
+      <motion.div
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        style={{ x }}
+      >
+        <Icon x={x} />
+      </motion.div>
+    </motion.div>
+  )
+}
+```
+
+---
+
+## Viewport scroll
+
+<div>
+
+The `useViewportScroll` hook provides four read-only `MotionValue`s, two that return the viewport's x/y scroll position in pixels, and two that return it as progress value between `0` and `1`.
+
+You can use these `MotionValue`s to declaratively drive features like progress indicators or parallax effects.
+
+<Button
+  name="Open sandbox"
+  link="https://codesandbox.io/s/framer-motion-viewport-scroll-and-svg-path-animation-mwi35?fontsize=14&module=%2Fsrc%2FExample.tsx"
+/>
+
+</div>
+
+<EmbeddedExample background="#05f">
+  <ViewportScroll />
+</EmbeddedExample>
+
+```jsx highlight(4-13)
+import { motion, useViewportScroll } from "framer-motion"
+
+export const CircleIndicator = () => {
+  const { scrollYProgress } = useViewportScroll()
+
+  return (
+    <motion.path
+      d="M 0, 20 a 20, 20 0 1,0 40,0 a 20, 20 0 1,0 -40,0"
+      style={{ pathLength: scrollYProgress }}
+    />
+  )
+}
+```
+
+---
+
+## Exit animations
+
+<div>
+
+In React, it's usually difficult to animate components once they've been removed from the DOM.
+
+By wrapping `motion` components with `AnimatePresence`, they gain the use of an `exit` property that can define either a set of values or a variant name to animate to before being removed.
+
+<Button
+  name="Open sandbox"
+  link="https://codesandbox.io/s/framer-motion-image-gallery-pqvx3?fontsize=14&module=%2Fsrc%2FExample.tsx"
+/>
+
+</div>
+
+<EmbeddedExample background="#151515">
+  <AnimatePresenceExample />
+</EmbeddedExample>
+
+```jsx highlight(4,10,13)
+import { motion, AnimatePresence } from "framer-motion"
+
+export const Slideshow = ({ image }) => (
+  <AnimatePresence>
+    <motion.img
+      key={image.src}
+      src={image.src}
+      initial={{ opacity: 0, y: 200 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    />
+  </AnimatePresence>
+)
+```
+
+---
+
+## Position transitions
+
+<div>
+
+By setting `positionTransition`, a `motion` component will smoothly animate to its new layout when it moves relative to its parent as a result of a render.
+
+It can be set to `true` to use the default x/y transitions, or set as a `Transition` for full control over the animation.
+
+It's great for smoothly reordering lists, and becomes super-powerful when paired with `AnimatePresence`.
+
+<Button
+  name="Open sandbox"
+  link="https://codesandbox.io/s/framer-motion-drag-with-constraints-pjn6t?fontsize=14&module=%2Fsrc%2FExample.tsx"
+/>
+
+</div>
+
+<EmbeddedExample background="#151515">
+  <PositionTransition />
+</EmbeddedExample>
+
+```jsx highlight(4)
+import { motion } from "framer-motion"
+
+export const List = ({ items }) =>
+  items.map(item => <motion.li positionTransition />)
+```
+
+---

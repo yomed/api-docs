@@ -1,0 +1,318 @@
+<!-- 👋 Editing this file? Need help? → https://github.com/framer/api-docs/blob/master/CONTRIBUTING.md -->
+
+import {
+  APIClass,
+  APIVariable,
+  APIFunction,
+  APIMethod,
+  APIInterface,
+  APIProperty,
+  APIMergedInterface,
+  Template,
+  Link,
+  Ref,
+  Callout,
+  Todo,
+} from "../../components"
+
+export default Template("Motion components")
+
+# Motion components
+
+<span className="lead">
+  Motion components are DOM primitives optimised for 60fps
+  animation and gestures.
+</span>
+
+<div>
+
+There's a `motion` component for every HTML and SVG element, for instance `motion.div`, `motion.circle` etc.
+
+These work exactly like their static counterparts, but offer props that allow you to:
+
+- Declaratively or imperatively animate components.
+- Add drag, pan, hover and tap gestures.
+- Respond to gestures with animations.
+- Deeply animate throughout React trees via variants.
+
+</div>
+
+```jsx
+import { motion } from "framer-motion"
+
+export const MyComponent () => (
+  <motion.div
+    animate={{ rotate: 360 }}
+    transition={{ duration: 2 }}
+  />
+)
+```
+
+<!-- Point to animation and gesture docs -->
+
+---
+
+## Supported values
+
+### Value types
+
+<div>
+
+Motion can animate:
+
+- Numbers: `0`, `10` etc.
+- Strings containing numbers: `"0vh"`, `"10px"` etc.
+- Colors: Hex, RGB(A), HSL(A).
+- Complex strings containing multiple numbers and/or colors (ie `"10px 0 #000"`)
+
+When animating to a non-animatable value like `"block"`, this value will be set instantly. By setting this value within `transitionEnd`, this value will be set at the end of the animation.
+
+</div>
+
+```jsx
+<motion.div
+  animate={{
+    x: 0,
+    backgroundColor: "#000",
+    boxShadow: "10px 10px 0 rgba(0, 0, 0, 0.2)",
+    position: "fixed",
+    transitionEnd: {
+      display: "none",
+    },
+  }}
+/>
+```
+
+### Value type conversion
+
+In general, values can only be animated between two of the same type (ie two HSL(A), two `px` etc).
+
+However, HTML component's `x`, `y`, `width`, `height`, `top`, `left`, `right` and `bottom` values have enhanced support and can all be animated freely between different value types.
+
+```jsx
+<motion.div
+  initial={{ x: "100%" }}
+  animate={{ x: "calc(100vw - 50%)" }}
+/>
+```
+
+### Transform
+
+<div>
+
+Transform properties are accelerated by the GPU, and therefore animate smoothly. They can be set and animated individually as:
+
+- Translate shortcuts: `x`, `y`, `z`
+- Translate: `translateX`, `translateY`, `translateZ`
+- Scale: `scale`, `scaleX`, `scaleY`
+- Rotate: `rotate`, `rotateX`, `rotateY`, `rotateZ`
+- Skew: `skew`, `skewX`, `skewY`
+
+</div>
+
+```jsx
+<motion.a
+  whileHover={{ scale: 1.2 }}
+  whilePress={{ scale: 0.8 }}
+  style={{ x: 100 }}
+/>
+```
+
+`motion` components have enhanced `style` props, allowing you to set them individually there, too.
+
+<div>
+
+For convenience, transform values are applied in a specific order: translate, scale, rotate, skew.
+
+However, you can customise this default order using the [`transformTemplate` prop](#motionprops.transformtemplate).
+
+</div>
+
+```jsx
+function template({ rotate, x }) {
+  return `rotate(${rotate}deg) translateX(${x}px)`
+}
+
+return (
+  <motion.div
+    transformTemplate={template}
+    animate={{ rotate: 360 }}
+    style={{ rotate: 0, x: "calc(50vh - 100px)" }}
+  />
+)
+```
+
+**SVG note:** For SVG components, `x` and `y` are positional attributes distinct from `translateX` and `translateY`. Using the former will change the element's `x`/`y` attributes, while using the latter will set its `style.transform` property.
+
+### Transform origin
+
+<div>
+
+`transform-origin` has three shortcut values that can be set and animated individually:
+
+- `originX`
+- `originY`
+- `originZ`
+
+If set as numbers, `originX` and `Y` default to a progress value between `0` and `1`. `originZ` defaults to pixels.
+
+</div>
+
+```jsx
+<motion.div style={{ originX: 0.5 }} />
+```
+
+### CSS variables
+
+Motion can animate the value of CSS variables, and also read CSS variables as animation targets.
+
+#### Using pre-defined CSS variables in animation
+
+<div>
+
+HTML `motion` components can animate to and from CSS variables, as long as that variable is defined on a component ancestor.
+
+</div>
+
+```jsx
+<motion.li animate={{ background: "var(--action)" }} />
+```
+
+#### Animating CSS variables
+
+<div>
+
+By defining and animating CSS variables, we can use a parent `motion` component to declaratively animate multiple DOM children.
+
+When animating CSS variables in TypeScript, the prop will need to be cast as `any` to prevent type errors (as there's an infinite number of variable names).
+
+CSS variables are also of an arbitary type, so Motion can't infer their default type. You're able to animate `rotate` as a number because Motion understands that it should be set as `deg`, whereas `'--rotate'` needs to be explicitly set with the unit type, e.g. `'360deg'`.
+
+</div>
+
+```jsx
+<motion.ul
+  initial={{ '--rotate': '0deg' } as any}
+  animate={{ '--rotate': '360deg' } as any}
+  transition={{ duration: 2, loop: Infinity }}
+>
+  <li style={{ transform: 'rotate(var(--rotate))' }} />
+  <li style={{ transform: 'rotate(var(--rotate))' }} />
+  <li style={{ transform: 'rotate(var(--rotate))' }} />
+</motion.ul>
+```
+
+### SVG path
+
+<div>
+
+`motion.path` components have access to three convenience SVG path properties:
+
+- `pathLength`
+- `pathSpacing`
+- `pathOffset`
+
+These are all set as a value between `0` and `1`, where `1` is the measured length of the path.
+
+</div>
+
+```jsx
+<motion.path
+  d={pathDefinition}
+  initial={{ pathLength: 1, pathOffset: 0 }}
+  animate={{ pathLength: 0, pathOffset: 1 }}
+  transition={{ duration: 2 }}
+/>
+```
+
+---
+
+### Performance
+
+Motion animates values outside the React render cycle for increased performance.
+
+[Using `MotionValue`s](/api/motion/motionvalue) instead of state to update visual properties will also avoid re-renders.
+
+Where possible, animate just [transform values](#transform) and opacity, as they are GPU-accelerated. This way, you can animate hundreds of layers on modern mobile devices.
+
+```jsx
+// GPU accelerated (fast)
+<motion.div style={{ x: 0 }} animate={{ x: 100 }} />
+
+// CPU drawing (slower)
+<motion.div style={{ left: 0 }} animate={{ left: 100 }} />
+```
+
+---
+
+### Server-side rendering
+
+`motion` components are fully compatible with server-side rendering, meaning the initial state of a component will be reflected in the server-generated output.
+
+```jsx
+// Server will output `translateX(100px)`
+<motion.div initial={false} animate={{ x: 100 }} />
+```
+
+#### Exceptions
+
+The following SVG values are not currently compatible with server-side rendering: `scale`, `rotate`, `pathLength`, `pathOffset` and `pathSpacing`.
+
+`scale` and `rotate` rely on the dynamic calculation of `transformOrigin` - `originX` and `originY` should be set as strings (either `px` or `%`) to support these server side.
+
+```jsx
+<motion.circle
+  style={{ scale: 2, originX: "100px", originY: "100px" }}
+/>
+```
+
+`path` values rely on the measurement of the overall path length. Setting `strokeDasharray` to `"0 1"` will hide the path until Motion can measure it.
+
+```jsx
+<motion.path strokeDasharray="0 1" />
+```
+
+---
+
+## Props
+
+`motion` components accept the following props:
+
+<APIProperty name="MotionProps.initial" />
+<APIProperty name="MotionProps.style" />
+
+<APIProperty name="AnimationProps.animate" />
+<APIProperty name="AnimationProps.transition" />
+<APIProperty name="AnimationProps.variants" />
+<APIProperty name="AnimationProps.positionTransition" />
+<APIProperty name="MotionAdvancedProps.custom" />
+<APIFunction name="MotionProps.transformTemplate()" />
+
+<APIFunction name="MotionCallbacks.onUpdate()" />
+<APIFunction name="MotionCallbacks.onAnimationComplete()" />
+
+<APIProperty name="HoverHandlers.whileHover" />
+<APIProperty name="TapHandlers.whileTap" />
+
+<APIMethod name="HoverHandlers.onHoverStart()" />
+<APIMethod name="HoverHandlers.onHoverEnd()" />
+
+<APIMethod name="TapHandlers.onTap()" />
+<APIMethod name="TapHandlers.onTapStart()" />
+<APIMethod name="TapHandlers.onTapCancel()" />
+
+<APIMethod name="PanHandlers.onPan()" />
+<APIMethod name="PanHandlers.onPanStart()" />
+<APIMethod name="PanHandlers.onPanEnd()" />
+
+<APIMethod name="DragHandlers.onDrag()" />
+<APIMethod name="DragHandlers.onDragStart()" />
+<APIMethod name="DragHandlers.onDragEnd()" />
+<APIMethod name="DragHandlers.onDirectionLock()" />
+
+<APIProperty name="DraggableProps.drag" />
+<APIProperty name="DraggableProps.dragConstraints" />
+<APIProperty name="DraggableProps.dragElastic" />
+<APIProperty name="DraggableProps.dragMomentum" />
+<APIProperty name="DraggableProps.dragTransition" />
+<APIProperty name="DraggableProps.dragPropagation" />

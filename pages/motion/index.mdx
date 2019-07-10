@@ -1,0 +1,218 @@
+<!-- 👋 Editing this file? Need help? → https://github.com/framer/api-docs/blob/master/CONTRIBUTING.md -->
+
+import {
+  Template,
+  CTA,
+  Header,
+  EmbeddedVideo,
+  EmbeddedDemo,
+} from "../../components"
+
+export default Template()
+
+<div>
+
+# Motion API
+
+<span className="lead">
+  A complete API reference for Motion, a production-ready
+  animation and gesture library.
+</span>
+
+</div>
+
+<Header />
+
+<div className="followed-by-list">
+
+## Overview
+
+Motion shares the simple animation and gesture API as the Framer X library, while maintaining HTML and SVG semantics.
+
+This makes it simple to port your high-fidelity prototypes to a production-ready environment, or make something completely new!
+
+</div>
+
+<div>
+
+- **Animations**: Making animations is as easy as setting values on the `animate` prop. Motion will automatically generate an animation for you, and this can be overridden with the powerful `transition` prop.
+
+</div>
+
+```jsx
+<motion.div animate={{ x: 100 }} />
+```
+
+<div>
+
+- **Gestures**: Motion extends React's event system with powerful gesture recognisers. It supports hover, tap, pan and drag.
+
+</div>
+
+```jsx
+<motion.div
+  drag="x"
+  dragConstraints={{ left: -100, right: 100 }}
+/>
+```
+
+<div>
+
+- **Variants**: Variants can be used to animate entire sub-trees of components with a single `animate` prop. Options like `when` and `staggerChildren` can be used to declaratively orchestrate these animations.
+
+</div>
+
+```jsx
+const list = { hidden: { opacity: 0 } }
+const item = { hidden: { x: -10, opacity: 0 } }
+
+return (
+  <motion.ul animate="hidden" variants={list}>
+    <motion.li variants={item} />
+    <motion.li variants={item} />
+    <motion.li variants={item} />
+  </motion.ul>
+)
+```
+
+<div>
+
+- **Server-side rendering**: The animated state of a component will be rendered server-side to prevent flashes of re-styled content after your JavaScript loads.
+
+</div>
+
+```jsx
+<motion.div initial={false} animate={{ x: 100 }} />
+```
+
+<div>
+
+- **MotionValues**: Create declarative, reactive chains of `MotionValue`s that can update as a result of animations and/or gestures.
+
+</div>
+
+```jsx
+const x = useMotionValue(0)
+const opacity = useTransform(x, [-100, 0, 100], [0, 1, 0])
+
+return <motion.div drag="x" style={{ x, opacity }} />
+```
+
+<div>
+
+- **Scroll-based animations**: Performant scroll-based animations like progress bars or parallax are super-easy to make with the special viewport scroll `MotionValue`s.
+
+</div>
+
+```jsx
+const { scrollYProgress } = useViewportScroll()
+
+return (
+  <motion.path style={{ pathLength: scrollYProgress }} />
+)
+```
+
+---
+
+## Quick Start
+
+Motion requires React 16.8 or greater.
+
+### Installation
+
+Install `framer-motion` from npm.
+
+```bash
+npm install framer-motion
+```
+
+### Importing
+
+Once installed, you can import Motion into your components via `framer-motion`.
+
+```jsx
+import { motion } from "framer-motion"
+```
+
+---
+
+## Topics
+
+### Motion components
+
+<div>
+
+`motion` components are the core of the Motion API. There's a `motion` component for every HTML and SVG element. They work exactly the same, with additional props that allow you to declaratively add animations and gestures.
+
+<CTA name="Learn More" link="/api/motion/component" />
+
+</div>
+
+```jsx
+<motion.div animate={{ scale: 0.5 }} />
+```
+
+### Animation
+
+<div>
+
+`motion` components are animated via the flexible `animate` prop. This can accept an object, variant label(s), or a reference to imperative animation controls.
+
+<CTA name="Learn More" link="/api/motion/animation" />
+
+</div>
+
+```jsx
+const variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+}
+
+return (
+  <motion.div
+    initial="hidden"
+    animate="visible"
+    variants={variants}
+  />
+)
+```
+
+### Gestures
+
+<div>
+
+`motion` components can detect hover, tap, pan and drag gestures.
+
+They also offer some helper props to temporarily animate while a gesture is active.
+
+<CTA name="Learn More" link="/api/motion/gestures" />
+
+</div>
+
+```jsx
+<motion.div
+  drag="x"
+  dragConstraints={{ left: -100, right: 100 }}
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.9 }}
+/>
+```
+
+### MotionValue
+
+<div>
+
+`MotionValue`s are used to track the state and velocity of animating values, outside of React's render lifecycle.
+
+They're created automatically and used internally by `motion` components. But they can also be created manually and chained together to create performant, declarative effects.
+
+<CTA name="Learn More" link="/api/motion/motionvalue" />
+
+</div>
+
+```jsx
+const x = useMotionValue(0)
+const opacity = useTransform(x, [-200, 0, 200], [0, 1, 0])
+
+return <motion.div drag="x" style={{ x, opacity }} />
+```

@@ -8,7 +8,7 @@ import {
   EmbeddedDemo,
 } from "../components"
 
-export default Template
+export default Template()
 
 <div>
 
@@ -116,9 +116,9 @@ To learn how to start using the Framer API within Framer X, you can watch this s
     width="560"
     height="315"
     src="https://www.youtube.com/embed/YSLU5KCiZWE"
-    frameborder="0"
+    frameBorder="0"
     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
+    allowFullScreen
   />
 </EmbeddedVideo>
 
@@ -137,7 +137,6 @@ Let’s have a look at a simple animation that scales a `Frame` to half the size
 </div>
 
 ```jsx
-// Animate scale to 50%
 export function MyComponent() {
   return <Frame animate={{ scale: 0.5 }} />
 }
@@ -153,7 +152,12 @@ A more extensive example would be to toggle the `scale` value on a tap, which us
 // Cycle scale on tap
 export function MyComponent() {
   const [scale, cycle] = useCycle(3, 1)
-  return <Frame animate={{ scale: scale }} onTap={() => cycle()} />
+  return (
+    <Frame
+      animate={{ scale: scale }}
+      onTap={() => cycle()}
+    />
+  )
 }
 ```
 
@@ -171,7 +175,7 @@ Here, we’re also rotating the `Frame` on every tap, next to scaling it.
 export function MyComponent() {
   const [twist, cycle] = useCycle(
     { scale: 0.5, rotate: 0 },
-    { scale: 1, rotate: 90 },
+    { scale: 1, rotate: 90 }
   )
 
   return <Frame animate={twist} onTap={() => cycle()} />

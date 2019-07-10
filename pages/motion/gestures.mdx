@@ -1,0 +1,170 @@
+<!-- 👋 Editing this file? Need help? → https://github.com/framer/api-docs/blob/master/CONTRIBUTING.md -->
+
+import {
+  APIClass,
+  APIVariable,
+  APIFunction,
+  APIMethod,
+  APIInterface,
+  APIProperty,
+  APIMergedInterface,
+  Template,
+  Link,
+  Ref,
+  Callout,
+  Todo,
+} from "../../components"
+
+export default Template("Gestures")
+
+# Gestures
+
+<span className="lead">
+  A powerful gesture recognition system for the browser.
+</span>
+
+<div>
+
+Motion extends the basic set of event listeners provided by React with a simple yet powerful set of UI gesture recognisers.
+
+It currently has support for hover, tap, pan and drag gesture detection. Each gesture has a series of event listeners that you can attach to your `motion` component.
+
+</div>
+
+## Animation helpers
+
+<div>
+
+`motion` components provide two helper props: `whileHover` and `whileTap`. These can define animation targets to temporarily animate to while a gesture is active.
+
+</div>
+
+```jsx
+<motion.button
+  whileHover={{
+    scale: 1.2,
+    transition: { duration: 1 },
+  }}
+  whileTap={{ scale: 0.9 }}
+/>
+```
+
+<div>
+
+Both props can be set either as a target of values to animate to, or the name of any variants defined via the `variants` prop. Variants will flow down through children as normal.
+
+</div>
+
+```jsx
+<motion.button
+  whileTap="tap"
+  whileHover="hover"
+  variants={buttonVariants}
+>
+  <svg>
+    <motion.path variants={iconVariants} />
+  </svg>
+</motion.button>
+```
+
+`motion` components automatically manage the interplay between the these `while` props. So for instance, if hovering starts and stops while the tap gesture is active, the tap gesture receives priority and any properties defined on both will remain in their tapped state.
+
+Likewise, if both gestures are defined and tapping ends, the component will know to animate either to the state defined in `whileHover`, or the component's original state, depending on whether tapping ends inside or outside of the component.
+
+### A note on SVG filters
+
+The `while` helper properties won't work on SVG `filter` components, as these elements don't have a physical presence and therefore don't receive events. To respond to gestures, you need to introduce React state to the component and attach listeners to the physical element.
+
+```jsx
+const MyComponent = () => {
+  const [isHovered, setHovered] = useState(false)
+
+  // Simplified example
+  return (
+    <svg>
+      <image
+        filter="url(#blur)"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      />
+      <filter id="blur">
+        <motion.feGaussianBlur
+          initial={false}
+          animate={{ stdDeviation: isHovered ? 0 : 2 }}
+        />
+      </filter>
+    </svg>
+  )
+}
+```
+
+## Hover
+
+<div>
+
+The hover gesture detects when a pointer hovers over or leaves a component.
+
+It differs from `onMouseEnter` and `onMouseLeave` in that hover is guaranteed to only fire as a result of actual mouse events (as opposed to browser-generated mice events emulated from touch input).
+
+</div>
+
+```jsx
+<motion.a
+  whileHover={{ scale: 1.2 }}
+  onHoverStart={e => {}}
+  onHoverEnd={e => {}}
+/>
+```
+
+<APIProperty name="HoverHandlers.whileHover" />
+<APIMethod name="HoverHandlers.onHoverStart()" />
+<APIMethod name="HoverHandlers.onHoverEnd()" />
+
+## Tap
+
+<div>
+
+The tap gesture detects when a pointer presses down and releases on the same component.
+
+It fires an `tap` event when tapping successfully completes on an component, and a `tapCancel` event when tapping ends outside the component.
+
+If the tappable component is a child of a draggable component, it'll automatically cancel the tap gesture if the pointer moves further than 3 pixels during the gesture.
+
+</div>
+
+<APIProperty name="TapHandlers.whileTap" />
+<APIMethod name="TapHandlers.onTap()" />
+<APIMethod name="TapHandlers.onTapStart()" />
+<APIMethod name="TapHandlers.onTapCancel()" />
+
+## Pan
+
+The pan gesture recognises when a pointer presses down on a component and moves further than 3 pixels. The pan gesture is ended when the pointer is released.
+
+```jsx
+<motion.div onPan={(e, pointInfo) => {}} />
+```
+
+<APIMethod name="PanHandlers.onPan()" />
+<APIMethod name="PanHandlers.onPanStart()" />
+<APIMethod name="PanHandlers.onPanEnd()" />
+
+## Drag
+
+The drag gesture follows the rules of the pan gesture but applies pointer movement to the x and/or y axis of the component.
+
+```jsx
+<motion.div drag />
+```
+
+<APIProperty name="DraggableProps.drag" />
+<APIProperty name="DraggableProps.dragConstraints" />
+<APIProperty name="DraggableProps.dragElastic" />
+<APIProperty name="DraggableProps.dragMomentum" />
+<APIProperty name="DraggableProps.dragTransition" />
+<APIProperty name="DraggableProps.dragPropagation" />
+
+<APIMethod name="DragHandlers.onDrag()" />
+<APIMethod name="DragHandlers.onDragStart()" />
+<APIMethod name="DragHandlers.onDragEnd()" />
+<APIMethod name="DragHandlers.onDirectionLock()" />

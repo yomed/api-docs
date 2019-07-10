@@ -1,27 +1,90 @@
 import * as React from "react"
-import { Navigation } from "../Navigation"
 import styled from "styled-components"
 import { Dynamic } from "monobase"
 import { tablet } from "./Breakpoints"
+import { Navigation } from "../Navigation"
 import { menuTextColor } from "../theme"
+import { version as libraryVersion } from "framer/package.json"
+import { version as motionVersion } from "framer-motion/package.json"
+import { isMotion } from "../utils/env"
+import { motion } from "framer"
 
-import { version } from "framer/package.json"
+const libraryUrl = "/api/"
+const motionUrl = "/api/motion/"
 
-const Home = styled.div`
+const SideBarHeader = styled.div`
     display: flex;
     height: 60px;
     place-items: center;
-    margin-bottom: 20px;
     border-bottom: 1px solid #eee;
     padding: 15px 20px;
-
-    a {
-        color: ${menuTextColor};
-    }
+    margin-bottom: 20px;
 
     @media (max-width: ${tablet}) {
-        padding: 15px 20px;
         margin-bottom: 0;
+    }
+
+    path {
+        fill: currentColor;
+    }
+`
+
+const Home = styled.a`
+    font-size: 15px;
+    font-weight: 500;
+    color: ${menuTextColor};
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: #05f;
+    }
+
+    span {
+        font-weight: 600;
+        padding-top: 3px;
+        letter-spacing: -0.5px;
+    }
+`
+
+const APISwitch = styled.a`
+    position: absolute;
+    display: flex;
+    place-items: center;
+    place-content: center;
+    height: 24px;
+    right: 60px;
+    color: #666;
+    background: #eee;
+    padding: 4px 9px;
+    margin-left: 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    transition: 0.2s ease;
+    transition-property: color, background;
+
+    &:after {
+        content: "›";
+        font-weight: 500;
+        margin-left: 4px;
+    }
+
+    &:hover {
+        background: #05f;
+        color: #fff;
+    }
+
+    span {
+        padding-top: 2px;
+    }
+
+    svg {
+        fill: currentColor;
+        margin-right: 5px;
+    }
+
+    @media (min-width: ${tablet}) {
+        right: 20px;
     }
 `
 
@@ -29,6 +92,10 @@ const Icon = styled.div`
     display: inline-block;
     position: relative;
     top: 2px;
+
+    svg {
+        margin-right: 8px;
+    }
 `
 
 const Toggle = styled.div`
@@ -97,22 +164,16 @@ const MobileToggle: React.FunctionComponent = () => {
     )
 }
 
-const DynamicMobileToggle = Dynamic(MobileToggle)
+export const DynamicMobileToggle = Dynamic(MobileToggle)
 
 const VersionBadgeBackground = styled.div`
-    position: absolute;
-    right: 18px;
     color: #666;
     background: #eee;
     padding: 4px 9px 2px;
+    margin-left: 12px;
     border-radius: 6px;
     font-weight: 500;
     font-size: 12px;
-
-    @media (max-width: ${tablet}) {
-        position: relative;
-        margin-left: 30px;
-    }
 `
 
 const VersionBadge: React.FunctionComponent<{ version: string }> = props => {
@@ -123,30 +184,46 @@ const VersionBadge: React.FunctionComponent<{ version: string }> = props => {
 function formatVersion(str: string): string {
     function formatPrerelease(str: string): string {
         if (str.length === 0) return str
-        const [name, ...rest] = str.split('.')
-        return (name[0].toUpperCase() + name.slice(1)) + ' ' + rest.join('.')
+        const [name, ...rest] = str.split(".")
+        return name[0].toUpperCase() + name.slice(1) + " " + rest.join(".")
     }
 
-    const [version, ...prerelease] = str.split('-')
-    return version + ' ' + formatPrerelease(prerelease.join('-'))
+    const [version, ...prerelease] = str.split("-")
+    return version + " " + formatPrerelease(prerelease.join("-"))
 }
 
 export const Sidebar: React.FunctionComponent = () => (
     <SideBarWrapper className="side-bar-wrapper">
-        <Home>
-            <a href="/api/">
+        <SideBarHeader>
+            <Home href={isMotion() ? motionUrl : libraryUrl}>
                 <Icon>
-                    <svg style={{ marginRight: "10px" }} xmlns="http://www.w3.org/2000/svg" width="10" height="15">
-                        <path d="M10 0v5H5L0 0zM0 5h5l5 5H5v5l-5-5z" fill="rgba(0, 0, 0, 1.00)" />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${isMotion() ? 13 : 10} 15`} height={15}>
+                        <path
+                            d={
+                                isMotion()
+                                    ? "M0 14V1l6.5 6.5L13 1v13l-3.25-3.25L6.5 14l-3.25-3.25z"
+                                    : "M10 0v5H5L0 0zM0 5h5l5 5H5v5l-5-5z"
+                            }
+                        />
                     </svg>
                 </Icon>
-                <span style={{ fontWeight: 600, paddingTop: "3px", letterSpacing: "-0.5px" }}>API</span>
-            </a>
-            <VersionBadge version={formatVersion(version)} />
-
+                <span>API</span>
+            </Home>
+            <VersionBadge version={formatVersion(isMotion() ? motionVersion : libraryVersion)} />
+            <APISwitch href={isMotion() ? libraryUrl : motionUrl}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${isMotion() ? 10 : 13} 15`} height={11}>
+                    <path
+                        d={
+                            isMotion()
+                                ? "M10 0v5H5L0 0zM0 5h5l5 5H5v5l-5-5z"
+                                : "M0 14V1l6.5 6.5L13 1v13l-3.25-3.25L6.5 14l-3.25-3.25z"
+                        }
+                    />
+                </svg>
+                <span>API</span>
+            </APISwitch>
             <DynamicMobileToggle />
-        </Home>
-
+        </SideBarHeader>
         <Navigation />
     </SideBarWrapper>
 )

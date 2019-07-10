@@ -1,8 +1,32 @@
 import * as React from "react"
 import { Menu, MenuItem, SubTitle } from "./layout/Menu"
+import { isMotion } from "./utils/env"
 
-/** Represents the main navigation for the site */
-export const Navigation: React.FunctionComponent = () => {
+const MotionMenu = () => {
+    return (
+        <Menu>
+            <SubTitle name="Get Started" />
+            <MenuItem className="home" href="/pages/motion/index.mdx" title="Introduction" />
+            <MenuItem className="examples" href="/pages/motion/examples.mdx" title="Examples" />
+
+            <SubTitle name="API" />
+            <MenuItem className="animation" href="/pages/motion/animation.mdx" title="Animation" />
+            <MenuItem className="gestures" href="/pages/motion/gestures.mdx" title="Gestures" />
+            <MenuItem className="motionvalue" href="/pages/motion/motionvalue.mdx" title="MotionValue" />
+            <MenuItem className="utilities" href="/pages/motion/utilities.mdx" title="Utilities" />
+            <MenuItem className="types" href="/pages/motion/types.mdx" title="Types" />
+
+            <SubTitle name="Components" />
+            <MenuItem className="motion" href="/pages/motion/component.mdx" title="motion" />
+            <MenuItem className="animate-presence" href="/pages/motion/animate-presence.mdx" title="AnimatePresence" />
+
+            <SubTitle name="Guides" />
+            <MenuItem className="handoff" href="/pages/motion/handoff.mdx" title="Handoff from Framer X" />
+        </Menu>
+    )
+}
+
+const LibraryMenu = () => {
     return (
         <Menu>
             <SubTitle name="Get Started" />
@@ -29,4 +53,9 @@ export const Navigation: React.FunctionComponent = () => {
             <MenuItem className="render-target" href="/pages/render-target.mdx" title="RenderTarget" />
         </Menu>
     )
+}
+
+/** Represents the main navigation for the site */
+export const Navigation: React.FunctionComponent = () => {
+    return isMotion() ? <MotionMenu /> : <LibraryMenu />
 }
