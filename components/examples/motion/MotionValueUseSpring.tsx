@@ -1,10 +1,9 @@
 import * as React from "react"
 import { useState } from "react"
 import { Dynamic } from "monobase"
-import { motion, useTransform, useMotionValue, useSpring } from "framer-motion"
+import { motion, useMotionValue, useSpring } from "framer-motion"
 import styled from "styled-components"
 import { distance } from "@popmotion/popcorn"
-import { Refresh } from "../../../components/layout/Refresh"
 
 const Ball = styled(motion.div)`
     background: white;

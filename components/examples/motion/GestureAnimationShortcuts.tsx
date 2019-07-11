@@ -1,9 +1,7 @@
 import * as React from "react"
-import { useState } from "react"
 import { Dynamic } from "monobase"
 import { motion } from "framer-motion"
 import styled from "styled-components"
-import { Refresh } from "../../../components/layout/Refresh"
 
 const Box = styled(motion.div)`
     width: 100px;
