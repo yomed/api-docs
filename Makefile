@@ -49,7 +49,7 @@ serve: dev
 .PHONY: build
 build: bootstrap data changelog
 	@$(monobase) build --project=. --path=$(BUILD_DIR)
-	@$(node) ./api/linkify.ts ${BUILD_DIR}/**/*.html
+	@find $(BUILD_DIR) -name '*.html' | xargs $(node) ./api/linkify.ts
 
 .PHONY: verify-api-references
 verify-api-references:
