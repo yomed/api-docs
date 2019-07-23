@@ -3,8 +3,6 @@ import * as ReactDOM from "react-dom"
 import styled from "styled-components"
 import { Dynamic } from "monobase"
 
-export type WithSkipNav = { skipnav?: boolean }
-
 const Info = styled.div`
     position: fixed;
     top: 10px;

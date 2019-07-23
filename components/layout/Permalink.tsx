@@ -3,6 +3,8 @@ import styled from "styled-components"
 import { usePath } from "monobase"
 import { CopyToClipboard } from "./dynamic/CopyToClipboard"
 
+export type WithSkipNav = { skipnav?: boolean }
+
 /**
  * Registers an in-page id reference to allow us to render the SubNavigation
  * Pass the `skipnav` to ignore the link.
