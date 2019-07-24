@@ -135,3 +135,20 @@ paths to make:
 To add support for custom `@library` and `@motion` block types, we use the undocumented process of monkey-patching the `AedocDefinitions` class within `api-extractor-model`. This is then consumed by `api-extractor`.
 
 Ensure that when updating `@microsoft/tsdocs`, `@microsoft/api-extractor-model` and/or `@microsoft/api-extractor` that all three packages are the latest version and that none of them install extra versions of the others to solve a minor version discrepancy. Otherwise the monkey-patch might be applied to an un-used version of `AedocDefinitions`.
+
+## Query Dataset
+
+Sometimes the build will error with broken references and you'll need to find
+the correct one to use. There is a `query-data` make command that allows
+you to lookup TSDoc ids in the dataset:
+
+    % make query-data QUERY='(animate:namespace)'
+
+Or when run without arguments it will start a repl:
+
+    % make query-data
+    query> (animate:namespace)
+    { ... big blob of json ... }
+    query>
+
+Press `ctrl-c` at any time to exit the repl.

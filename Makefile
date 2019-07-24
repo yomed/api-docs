@@ -27,6 +27,8 @@ usage:
 	@echo "    watch-motion [FRAMER_MOTION_DIR=<path>] - watches the FRAMER_MOTION_DIR for changes and rebuilds framer.data.js"
 	@echo "    watch-all - watches the FRAMER_LIBRARY_DIR & FRAMER_MOTION_DIR for changes and rebuilds framer.data.js"
 	@echo "    fixtures - regenerates the __fixtures__ files for unit tests"
+	@echo "    query - run a query repl to inspect the framer.data.json file"
+	@echo "    query QUERY=<ref> - lookup a specific id in the framer.data.json file"
 	@echo ""
 	@echo "    NOTE: You can use \`make -B\` to force rebuild changes if needed"
 
@@ -65,6 +67,9 @@ publish: bootstrap data changelog
 clean:
 	@rm -rf ./build
 
+.PHONY: query
+query-data: data
+	@yarn ts-node ./api/query.ts '$(QUERY)'
 
 .PHONY: upgrade
 upgrade:
