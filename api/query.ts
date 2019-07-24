@@ -14,20 +14,38 @@ import json from "../components/framer.data"
 const api = new FramerAPI(json as any)
 const query = process.argv[2]
 
+const ids: string[] = []
+
+type Item = { [id: string]: { children?: Item } }
+;(function walk(tree: Item) {
+    for (const [key, item] of Object.entries(tree)) {
+        ids.push(key)
+        if (item.children) {
+            walk(item.children)
+        }
+    }
+})(json)
+
 if (query) {
     console.log(`Searching for ${query}:`)
     console.log(api.resolve(query))
 } else {
-    console.log("Starting query repl press ctrl-c to exit:")
-    process.stdout.write("query> ")
+    console.log("Starting query repl press <tab> to autocomplete & ctrl-c to exit:")
+
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
-        terminal: false,
+        terminal: true,
+        prompt: "query> ",
+        completer: function completer(line: string) {
+            const hits = ids.filter(id => id.startsWith(line))
+            return [hits, line]
+        },
     })
-
     rl.on("line", function(line) {
-        console.log(api.resolve(line))
-        process.stdout.write("query> ")
+        console.log(api.resolve(line.trim()))
+        rl.prompt()
     })
+    rl.on("close", () => process.exit(0))
+    rl.prompt()
 }
