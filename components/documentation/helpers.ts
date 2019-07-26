@@ -1,8 +1,15 @@
 import className from "classnames"
 import { AnyModel, BaseModel } from "../../api"
 
+/* Returns true if the model has no content */
 export function isHeaderEmpty(model: AnyModel, children: any[] = []): boolean {
-    return !model.summaryMarkup && !model.deprecatedMarkup && children.length === 0
+    return (
+        !model.summaryMarkup &&
+        !model.deprecatedMarkup &&
+        !model.prototypeMarkup &&
+        !model.productionMarkup &&
+        children.length === 0
+    )
 }
 
 export function apiClassName(type: string, model: AnyModel, children: any[] = []): string {
