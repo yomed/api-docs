@@ -31,8 +31,20 @@ export class FramerAPI {
             let current = this.data
 
             while (keys.length) {
-                const key = keys.shift()
-                if (!key || !current[key]) return null
+                let key = keys.shift()
+                if (!key) return null
+
+                // Legacy support for (foo:function) ids that were
+                // migrated to (foo:1) in more recent api-extractor
+                // versions.
+                if (!current[key] && key.endsWith(":function)")) {
+                    key = key.replace(":function)", ":1)")
+                }
+                if (!current[key] && key.endsWith(":instance)")) {
+                    key = key.replace(":instance)", ":instance,1)")
+                }
+
+                if (!current[key]) return null
 
                 if (keys.length === 0) {
                     return current[key].model
@@ -94,9 +106,13 @@ export class FramerAPI {
                 // differentiate say from a function called Color and a
                 // namespace called Color.
                 if (kind && remainder === "") {
-                    const potential = keyForKind(key, kind)
-                    const match = next(current, potential, remainder)
-                    if (match) return match
+                    const potentials = keysForKind(key, kind)
+                    for (const potential of potentials) {
+                        const match = next(current, potential, remainder)
+                        if (match) return match
+                    }
+                    // If provided a hint then bail.
+                    return null
                 }
 
                 // Otherwise loop through all potential matches
@@ -202,8 +218,11 @@ function potentialKeys(name: string): string[] {
     return [
         `${name}`, // Potential variable, enum field or property
         `(${name}:0)`, // Potential function
+        `(${name}:1)`, // Potential function when extending a namespace
         `(${name}:instance)`, // Potential method with no overload
+        `(${name}:instance,1)`, // Potential method with overload
         `(${name}:static)`, // Potential static method with no overload
+        `(${name}:static,1)`, // Potential static method with overload
         `(${name}:class)`,
         `(${name}:interface)`,
         `(${name}:enum)`,
@@ -214,38 +233,46 @@ function potentialKeys(name: string): string[] {
     ]
 }
 
-function keyForKind(name: string, kind: Kind): string {
+function keysForKind(name: string, kind: Kind): string[] {
     name = name.replace(/\(\)$/, "")
     switch (kind) {
         case Kind.Class:
-            return `(${name}:class)`
+            return [`(${name}:class)`]
         case Kind.Interface:
-            return `(${name}:interface)`
+            return [`(${name}:interface)`]
         case Kind.Constructor:
         case Kind.ConstructSignature:
-            return `(${name}:constructor)`
+            return [`(${name}:constructor)`]
         case Kind.Function:
-            return `(${name}:function)`
+            // Support override syntax. We go up to 1 because api-extractor
+            // treats functions with namespace extensions as overrides.
+            return [`(${name}:function)`, `(${name}:0)`, `(${name}:1)`]
         case Kind.Method:
-            return `(${name}:instance)`
         case Kind.MethodSignature:
-            return `(${name}:instance)`
+            return [
+                `(${name}:instance)`,
+                `(${name}:instance,1)`,
+                `(${name}:static)`,
+                `(${name}:static,1)`,
+                `(${name}:0)`,
+            ]
         case Kind.Enum:
-            return `(${name}:enum)`
+            return [`(${name}:enum)`]
         case Kind.Namespace:
-            return `(${name}:namespace)`
+            return [`(${name}:namespace)`]
         case Kind.EnumMember:
-            return name
+            return [name]
         case Kind.Parameter:
-            return `(${name}:parameter)`
+            return [`(${name}:parameter)`]
         case Kind.Property:
-            return `(${name}:instance)`
+            // Support both Property & PropertySignature & MethodSignature here
+            return [`(${name}:instance)`, `(${name}:0)`, name]
         case Kind.PropertySignature:
-            return name
+            return [name]
         case Kind.TypeAlias:
-            return name
+            return [name]
         case Kind.Variable:
-            return `(${name}:variable)`
+            return [`(${name}:variable)`, name]
         default:
             return assertNever(kind)
     }
