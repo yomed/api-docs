@@ -10,6 +10,17 @@ import { GoogleTag } from "./GoogleTag"
 import { isMotion } from "./utils/env"
 
 const Body = styled.body`
+    --library: #05f;
+    --motion: #60f;
+
+    --accent: ${() => (isMotion() ? "var(--motion)" : "var(--library)")};
+    --accent-selection: ${() => (isMotion() ? "rgba(119, 0, 255, 0.9)" : "rgba(0, 85, 255, 0.9)")};
+    --accent-backdrop: ${() => (isMotion() ? "rgba(119, 0, 255, 0.1)" : "rgba(0, 85, 255, 0.1)")};
+
+    --animation-left: ${() => (isMotion() ? "#b5f" : "#09f")};
+    --animation-middle: ${() => (isMotion() ? "#fbd" : "#adf")};
+    --animation-right: #fff;
+
     font-family: Colfax, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans,
         Droid Sans, Helvetica Neue, sans-serif;
     font-feature-settings: "liga", "kern";
@@ -19,8 +30,8 @@ const Body = styled.body`
     overscroll-behavior: none;
 
     /* Selection */
-    ::selection {
-        background: rgba(0, 85, 255, 0.99);
+    *::selection {
+        background: var(--accent-selection);
         color: #fff;
     }
 
@@ -136,7 +147,9 @@ export const Page: React.FunctionComponent<{ title?: string; showEdit?: boolean 
             usePath() !== "" &&
             usePath() !== "/api/tutorial/" &&
             usePath() !== "/" &&
-            usePath() !== "/tutorial"
+            usePath() !== "/tutorial" &&
+            usePath() !== "/api/motion/" &&
+            usePath() !== "/motion"
     }
 
     // All page UI must go in this variable for <StyledSheet> to pick them up.

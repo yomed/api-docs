@@ -2,7 +2,6 @@ import * as React from "react"
 import styled, { keyframes } from "styled-components"
 import { desktop, widescreen, mobile } from "./Breakpoints"
 import { Permalink } from "./Permalink"
-import { isMotion } from "../utils/env"
 
 const Background = styled.div<{ height?: number; internal?: boolean }>`
     display: flex;
@@ -30,7 +29,7 @@ const Background = styled.div<{ height?: number; internal?: boolean }>`
         margin-left: 0;
         margin-top: ${props => (props.internal ? "0px !important" : "0px !important")};
         left: 0;
-        margin-bottom: 60px;
+        margin-bottom: 58px;
         background: ${props => (props.height ? "#242424" : "#151515")};
     }
 `
@@ -58,23 +57,19 @@ export const animation = keyframes`
   }
 `
 
-export const IconWrapper = styled.section`
+export const AnimationCharacter = styled.svg`
     transform: translateY(-15px);
-    -webkit-animation: ${animation} 1s cubic-bezier(0.445, 0.05, 0.55, 0.95) 0s infinite alternate;
     animation: ${animation} 1s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite alternate;
+
+    &:nth-of-type(2) {
+        animation-delay: -0.15s;
+    }
+
+    &:nth-of-type(3) {
+        animation-delay: -0.3s;
+    }
 `
 
-export const IconWrapperTwo = styled.section`
-    transform: translateY(-15px);
-    -webkit-animation: ${animation} 1s cubic-bezier(0.445, 0.05, 0.55, 0.95) -0.15s infinite alternate;
-    animation: ${animation} 1s cubic-bezier(0.445, 0.05, 0.55, 0.95) -0.15s infinite alternate;
-`
-
-export const IconWrapperThree = styled.section`
-    transform: translateY(-15px);
-    -webkit-animation: ${animation} 1s cubic-bezier(0.445, 0.05, 0.55, 0.95) -0.3s infinite alternate;
-    animation: ${animation} 1s cubic-bezier(0.445, 0.05, 0.55, 0.95) -0.3s infinite alternate;
-`
 export const Stack = styled.div`
     width: 252px;
     height: 60px;
@@ -137,32 +132,20 @@ export const Header: React.FunctionComponent = () => {
     return (
         <BackgroundLogo className="header">
             <Stack>
-                <IconWrapper>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="72" height="60">
-                        <g>
-                            <path d="M 72 60 L 36 60 L 36 0 Z" fill="#09f" opacity="0.5" />
-                            <path d="M 36 60 L 0 60 L 36 0 Z" fill="#09f" />
-                        </g>
-                    </svg>
-                </IconWrapper>
-
-                <IconWrapperTwo>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="60">
-                        <g>
-                            <path d="M 0 0 L 30 0 L 30 60 L 0 60 Z" fill="#adf" opacity="0.5" />
-                            <path
-                                d="M 0 0 L 30 0 C 41.046 0 50 8.954 50 20 L 50 20 C 50 31.046 41.046 40 30 40 L 0 40 Z"
-                                fill="#adf"
-                            />
-                        </g>
-                    </svg>
-                </IconWrapperTwo>
-
-                <IconWrapperThree>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="60">
-                        <path d="M 0 0 L 30 0 L 30 60 L 0 60 Z" fill="#fff" />
-                    </svg>
-                </IconWrapperThree>
+                <AnimationCharacter xmlns="http://www.w3.org/2000/svg" width="72" height="60">
+                    <path d="M 72 60 L 36 60 L 36 0 Z" fill="var(--animation-left)" opacity="0.5" />
+                    <path d="M 36 60 L 0 60 L 36 0 Z" fill="var(--animation-left)" />
+                </AnimationCharacter>
+                <AnimationCharacter xmlns="http://www.w3.org/2000/svg" width="50" height="60">
+                    <path d="M 0 0 L 30 0 L 30 60 L 0 60 Z" fill="var(--animation-middle)" opacity="0.5" />
+                    <path
+                        d="M 0 0 L 30 0 C 41.046 0 50 8.954 50 20 L 50 20 C 50 31.046 41.046 40 30 40 L 0 40 Z"
+                        fill="var(--animation-middle)"
+                    />
+                </AnimationCharacter>
+                <AnimationCharacter xmlns="http://www.w3.org/2000/svg" width="30" height="60">
+                    <path d="M 0 0 L 30 0 L 30 60 L 0 60 Z" fill="var(--animation-right)" />
+                </AnimationCharacter>
             </Stack>
         </BackgroundLogo>
     )
