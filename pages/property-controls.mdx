@@ -16,7 +16,13 @@ export default Template("Property Controls")
 </span>
 
 <div>
-Property Controls allow users to pass properties (or props) to a code component through the Framer X interface. When a user selects a code component on the canvas, its Property Controls are visible on the properties panel. As a component author, it’s up to you to decide which Property Controls to add and what options they should present to the user.
+  Property Controls allow users to pass properties (or
+  props) to a code component through the Framer X interface.
+  When a user selects a code component on the canvas, its
+  Property Controls are visible on the properties panel. As
+  a component author, it’s up to you to decide which
+  Property Controls to add and what options they should
+  present to the user.
 </div>
 
 ## Adding Controls
@@ -62,7 +68,7 @@ addPropertyControls(MyComponent, {
 
 Controls can be hidden by adding the `hidden` function to the property description. The function receives an object containing the set properties and returns a `boolean`. In this example we hide the `text` property entirely when the connected property (the `toggle`) is `false`.
 
-Now you can toggle the visibilty of the text property control by changing the `toggle` boolean from within the property panel in Framer X.
+Now you can toggle the visibility of the text property control by changing the `toggle` boolean from within the property panel in Framer X.
 
 </div>
 
@@ -138,3 +144,24 @@ addPropertyControls(MyComponent, {
 ## String
 
 <APIEnumField name="ControlType.String" />
+
+---
+
+## Event Handler
+
+### ControlType.EventHandler
+
+A control that exposes [custom events](/api/actions/#custom-events) in the [prototyping panel](https://framer.com/support/using-framer/prototyping-panel/) in the Framer UI. When choosing an event from the prototyping panel, you’ll have the option to navigate to a new Frame, open a URL, log something in the console, or attach a [custom action](/api/actions/#custom-actions).
+
+```jsx
+export function MyComponent(props) {
+  return <input onSubmit={props.onSubmit()}/>
+}
+
+addPropertyControls(MyComponent, {
+  onSubmit: {
+    type: ControlType.EventHandler,
+    title: "Submit"
+  },
+}
+```

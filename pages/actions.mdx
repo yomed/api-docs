@@ -1,0 +1,117 @@
+<!-- 👋 Editing this file? Need help? → https://github.com/framer/api-docs/blob/master/CONTRIBUTING.md -->
+
+import {
+  APIEnum,
+  APIEnumField,
+  Template,
+  Callout,
+} from "../components"
+
+export default Template("Action Controls")
+
+# Actions
+
+<span className="lead">
+  Visually define the way your components respond to events
+  in Framer.
+</span>
+
+<div>
+
+Actions in Framer allow you to define how your components respond to events, such as a tap or hover. When a user selects an element on the canvas, any available events will appear on the right, under the Prototyping panel.
+
+From here, they'll be able to choose one or more actions, such as navigating or opening a URL. By default, you have the option to choose between a set of built in actions:
+
+- Open URL
+- Log
+- Navigate
+
+Apart from the default actions, custom actions can also be added to accomodate for different setups.
+
+</div>
+
+---
+
+## Custom Events
+
+<div>
+
+Custom events can be added to code components through [Property Controls](https://www.framer.com/api/property-controls/) in Framer. Added events will appear in the Prototyping panel when selected.
+
+To add a custom event to the Framer UI, use the `addPropertyControls` function, and give your event a `type` of `ControlType.EventHandler`.
+
+</div>
+
+```jsx
+export function Button({ myCustomEvent }) {
+  return <button onClick={() => myCustomEvent()} />
+}
+
+addPropertyControls(MyComponent, {
+  myCustomEvent: { type: ControlType.EventHandler },
+})
+```
+
+---
+
+## Custom Actions
+
+<div>
+
+Framer also provides an API to create and attach your own custom Actions.
+
+When using the `ActionHandler` type on a function, you'll see the option to attach this action in the Events UI panel on the right (after selecting an event).
+
+</div>
+
+```jsx
+import { ActionHandler } from "framer"
+
+export function customAction(): ActionHandler {
+  return () => {
+    console.log("I'm a custom action")
+  }
+}
+```
+
+<Callout>
+  Custom actions can be used more than once, and can become
+  complex. You can split these actions into a separate file
+  to make them easier to maintain.
+</Callout>
+
+---
+
+## Action Controls
+
+<div>
+
+Not only can you create custom actions, but you can make them more dynamic by giving your user control over what the events might actually do by using the `addActionControls` function.
+
+To give your custom action Action Controls, import both the `addActionControls` function and the `ControlType` type from the `framer` library.
+
+The Control Types you can add follow the same controls you can add through Property Controls. [Read more](https://www.framer.com/api/property-controls/#adding-controls) about Property Controls to see what type of controls you can add to actions.
+
+In this example, we've added a String Control Type to our `customAction` we created earlier. We can now use this through `props` within our Action Control.
+
+</div>
+
+```jsx
+import {
+  addActionControls,
+  ControlType,
+  ActionHandler,
+} from "framer"
+
+addActionControls(customAction, "Title", {
+  text: {
+    type: ControlType.String,
+  },
+})
+
+export function customAction({ text }): ActionHandler {
+  return () => {
+    console.log(text)
+  }
+}
+```
