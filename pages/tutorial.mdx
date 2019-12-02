@@ -426,7 +426,7 @@ export function Slider() {
 
 To get the fill `Frame` and knob `Frame` to stay in sync they just need to share the `position` variable. Set your new `MotionValue` variable `position` as the `width` of the fill `Frame`. Also, add a `x` position to your knob `Frame` and use `position` as the value too.
 
-You’ll notice once you do this, the fill and knob are finally in sync during a drag interaction. A drag on the knob causes it’s `x` value to change, and since we gave the knob a `MotionValue` for the `x` property, the `position` variable gets updated whenever that change occurs. That means the `width` of the fill `Frame` will update because it uses `position` as well.
+You’ll notice once you do this, the fill and knob are finally in sync during a drag interaction. A drag on the knob causes its `x` value to change, and since we gave the knob a `MotionValue` for the `x` property, the `position` variable gets updated whenever that change occurs. That means the `width` of the fill `Frame` will update because it uses `position` as well.
 
 This whole process occurs outside of the React lifecycle to keep things performant and avoids asking the component to re-render. This is pretty powerful in only a few lines of code. **Awesome!**
 
@@ -456,7 +456,7 @@ This whole process occurs outside of the React lifecycle to keep things performa
 
 <div>
 
-You now have a functioning `Slider` component but its not of much use yet. It does the basic job that a slider should, except that it needs to control something.
+You now have a functioning `Slider` component but it’s not of much use yet. It does the basic job that a slider should, except that it needs to control something.
 
 Let’s create a profile image `Frame` that will get state updates from the `Slider` to control its scale. To do this, you’ll want to add an image `frame` and use React Hooks to manage the state of the image scale.
 
@@ -650,7 +650,7 @@ When calling `useTransform()` you’re creating a new `MotionValue` variable tha
 
 To pass the transformed `newValue` back to the image `Frame` use the `onDrag` event handler on the knob `Frame`. The `onDrag` property allows you to execute a chunk of code expressed as a `function` each time you move the knob. Inside the function do a quick check to ensure that `onChange` exists since it doesn’t have a fallback value. This helps you avoid errors when you don’t have fallbacks.
 
-You can now call the `onChange()` property safely with `newValue.get()`. Since `newValue` is a special `MotionValue` variable we need to explicity ask for it’s value using `get()`. Doing this sends `newValue` all the way back to the `setScale` state hook provided in the `onChange` property of your `Slider` component in `index.tsx`.
+You can now call the `onChange()` property safely with `newValue.get()`. Since `newValue` is a special `MotionValue` variable we need to explicity ask for its value using `get()`. Doing this sends `newValue` all the way back to the `setScale` state hook provided in the `onChange` property of your `Slider` component in `index.tsx`.
 
 **Booyah!** The `Slider` knob updates the scale of the image.
 
