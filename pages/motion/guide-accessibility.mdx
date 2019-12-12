@@ -1,0 +1,105 @@
+<!-- 👋 Editing this file? Need help? → https://github.com/framer/api-docs/blob/master/CONTRIBUTING.md -->
+
+import {
+  APIClass,
+  APIVariable,
+  APIFunction,
+  APIMethod,
+  APIInterface,
+  APIProperty,
+  APIMergedInterface,
+  Template,
+  Link,
+  Ref,
+  Callout,
+  Todo,
+} from "../../components"
+
+export default Template("Accessibility")
+
+# Accessibility
+
+<span className="lead">
+  How to design accessible animations with Framer Motion.
+</span>
+
+Framer Motion provides the <Ref name="usereducedmotion">the useReducedMotion hook</Ref> to help you support users who have enabled their device’s Reduced Motion setting.
+
+```jsx
+import { useReducedMotion } from "framer-motion"
+
+// In your component...
+const shouldReduceMotion = useReducedMotion()
+```
+
+There are already some excellent guides about _why_ and _how_ we should design accessible animations, like those at [A List Apart](https://alistapart.com/blog/post/more-resources-for-accessible-animations/) and [Smashing Magazine](https://www.smashingmagazine.com/2018/04/designing-accessibility-inclusion/).
+
+Practically speaking, the main takeaways are that we should keep educational transitions but be aware of motion sickness. So that means replacing position transitions on large elements with opacity transitions, disabling auto-playing videos, and disabling parallax animations.
+
+In this guide we'll briefly take a look at how we can use the `useReducedMotion` hook to implement each.
+
+## Replace position transitions with opacity
+
+<div>
+
+When Reduced Motion is enabled on iOS, the operating system still animates between states to help users transition between each context. But instead of the default scale and position animations, it fades content in and out.
+
+We can achieve this in Framer Motion by passing different values to `animate` based on whether `useReducedMotion` returns `true` or not.
+
+</div>
+
+```jsx
+function Sidebar({ isOpen }) {
+  const shouldReduceMotion = useReducedMotion()
+  let animate
+
+  if (isOpen) {
+    animate = shouldReduceMotion ? { opacity: 1 } : { x: 0 }
+  } else {
+    animate = shouldReduceMotion
+      ? { opacity: 0 }
+      : { x: "-100%" }
+  }
+
+  return <motion.div animate={animate} />
+}
+```
+
+## Disable auto-playing videos
+
+`useReducedMotion` isn’t only compatible with the Framer Motion API. It returns a simple boolean, so you can use it for any purpose, like disabling the autoplay of a background `video` element.
+
+```jsx
+function BackgroundVideo() {
+  const shouldReduceMotion = useReducedMotion()
+
+  return <video autoplay={!shouldReduceMotion} />
+}
+```
+
+## Disable parallax animations
+
+<div>
+
+Parallax animations can be very unpleasant for people pre-disposed to motion sickness.
+
+To build parallax, we usually get `scrollY` from `useViewportScroll`, and create a new `MotionValue` via passing that to `useTransform` which will update's a `motion` component's `y` position as the scroll value changes.
+
+To disable this for reduced motion devices, we can conditionally pass this `MotionValue` to the animating element.
+
+</div>
+
+```jsx
+function Parallax() {
+  const shouldReduceMotion = useReducedMotion()
+  const { scrollY } = useViewportScroll()
+
+  const y = useTransform(scrollY, [0, 1], [0, -0.2], {
+    clamp: false,
+  })
+
+  return (
+    <motion.div style={{ y: shouldReduceMotion ? 0 : y }} />
+  )
+}
+```
