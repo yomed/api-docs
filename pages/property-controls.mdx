@@ -165,3 +165,24 @@ addPropertyControls(MyComponent, {
   },
 }
 ```
+
+---
+
+## Transition
+
+### ControlType.Transition
+
+A control that exposes [animation controls](/api/animation/#animation-controls) in the [prototyping panel](https://framer.com/support/using-framer/prototyping-panel/) in the Framer UI.
+
+```jsx
+export function MyComponent(props) {
+  return <Frame animate={{ scale: 2 }} transition={props.transition} />
+}
+
+addPropertyControls(MyComponent, {
+  transition: {
+    type: ControlType.Transition,
+    title: "Transition"
+  },
+}
+```
