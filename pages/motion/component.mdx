@@ -274,11 +274,7 @@ The following SVG values are not currently compatible with server-side rendering
 
 ---
 
-## Props
-
-`motion` components accept the following props:
-
-### Animation
+## Props: Animation
 
 <APIProperty name="MotionProps.initial" />
 <APIProperty name="AnimationProps.animate" />
@@ -287,14 +283,19 @@ The following SVG values are not currently compatible with server-side rendering
 <APIProperty name="AnimationProps.variants" />
 <APIProperty name="MotionProps.style" />
 
-## Layout animation
+## Props: Layout animation
 
 <APIProperty name="LayoutProps.layout" />
 <APIProperty name="LayoutProps.layoutId" />
 <APIFunction name="LayoutProps.onLayoutAnimationComplete" />
 <APIFunction name="LayoutProps.onViewportBoxUpdate()" />
 
-### Drag
+## Props: Gesture animations
+
+<APIProperty name="HoverHandlers.whileHover" />
+<APIProperty name="TapHandlers.whileTap" />
+
+## Props: Drag
 
 <APIProperty name="DraggableProps.drag" />
 <APIProperty name="DraggableProps.dragConstraints" />
@@ -303,42 +304,31 @@ The following SVG values are not currently compatible with server-side rendering
 <APIProperty name="DraggableProps.dragTransition" />
 <APIProperty name="DraggableProps.dragPropagation" />
 
-### Gesture animations
-
-<APIProperty name="HoverHandlers.whileHover" />
-<APIProperty name="TapHandlers.whileTap" />
-
-### Animation events
+## Props: Animation events
 
 <APIFunction name="MotionCallbacks.onUpdate()" />
 <APIFunction name="MotionCallbacks.onAnimationStart()" />
 <APIFunction name="MotionCallbacks.onAnimationComplete()" />
 
-### Hover events
+## Props: Gesutre events
 
 <APIMethod name="HoverHandlers.onHoverStart()" />
 <APIMethod name="HoverHandlers.onHoverEnd()" />
-
-### Tap events
-
 <APIMethod name="TapHandlers.onTap()" />
 <APIMethod name="TapHandlers.onTapStart()" />
 <APIMethod name="TapHandlers.onTapCancel()" />
-
-### Pan events
-
 <APIMethod name="PanHandlers.onPan()" />
 <APIMethod name="PanHandlers.onPanStart()" />
 <APIMethod name="PanHandlers.onPanEnd()" />
 
-### Drag events
+## Props: Drag events
 
 <APIMethod name="DragHandlers.onDrag()" />
 <APIMethod name="DragHandlers.onDragStart()" />
 <APIMethod name="DragHandlers.onDragEnd()" />
 <APIMethod name="DragHandlers.onDirectionLock()" />
 
-## Advanced
+## Props: Advanced
 
 <APIProperty name="MotionAdvancedProps.inherit" />
 <APIProperty name="MotionAdvancedProps.custom" />
