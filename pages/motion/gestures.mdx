@@ -88,7 +88,7 @@ const MyComponent = () => {
         onMouseLeave={() => setHovered(false)}
       />
       <filter id="blur">
-        <motion.feGaussianBlur
+        <motion.div
           initial={false}
           animate={{ stdDeviation: isHovered ? 0 : 2 }}
         />
