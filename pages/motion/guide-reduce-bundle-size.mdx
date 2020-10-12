@@ -24,7 +24,7 @@ export default Template("Reduce bundle size")
   reduce it.
 </span>
 
-As of version 2.2, the full bundle size for Framer Motion is **28kb**. Thanks to code-splitting, it's likely that this **isn't** the actual weight you'll be adding to your bundle size.
+As of version 2.9, the full bundle size for Framer Motion is **27.6kb**. Thanks to code-splitting, it's likely that this **isn't** the actual weight you'll be adding to your bundle size.
 
 For example, if you are only importing `AnimatePresence` and `usePresence` to implement your own exit animations with CSS, you'd only add **1.4kb** to your bundle.
 
@@ -32,15 +32,15 @@ For example, if you are only importing `AnimatePresence` and `usePresence` to im
 import { AnimatePresence, usePresence } from "framer-motion" // 1.4kb
 ```
 
-However, the main import is the `motion` component and, by default, when you use it you add **24kb** to your bundle.
+However, the main import is the `motion` component and, by default, when you use it you add around **23kb** to your bundle.
 
 ```jsx
-import { motion } from "framer-motion" // 24kb
+import { motion } from "framer-motion" // 23kb
 ```
 
 Framer Motion's simple, props-driven API is the reason for this extra size. Unused features aren't code-split, as it isn't currently possible to detect which features you're using at build time.
 
-However, Motion offers APIs that allow you to create loading strategies so that you only ever import what you need. In 2.2, employing these strategies makes it possible to reduce the `motion` import size down to **19kb**, and future versions will be able to reduce this even further.
+However, Motion offers APIs that allow you to create loading strategies so that you only ever import what you need. In 2.9, employing these strategies makes it possible to reduce the `motion` import size down to **12.5kb**, and future versions will be able to reduce this even further.
 
 ## How to reduce bundle size
 
