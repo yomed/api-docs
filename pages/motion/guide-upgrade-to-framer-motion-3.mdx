@@ -32,7 +32,7 @@ Motion 3 features a centralisation of how animation states are computed.
 All animation props are now ranked in terms of priority (left being lowest, right being highest).
 
 ```javascript
-;["animate", "while-", "exit"]
+const priority = ["animate", "while-", "exit"]
 ```
 
 When one of those props changes, or becomes active/inactive, we will recompute the necessary animations. This is an extension and codification of a behaviour that was partially implemented only for the `while` props, leading to a more consistent and predictable experience.
