@@ -5,6 +5,7 @@ node := $(bin)/ts-node
 watch := $(bin)/chokidar
 monobase := $(bin)/monobase
 dotenv := $(bin)/dotenv
+cpy := $(bin)/cpy
 
 BUILD_DIR ?= ./build
 FRAMER_LIBRARY_DIR ?= ./node_modules/framer
@@ -36,9 +37,8 @@ usage:
 	@echo "    NOTE: You can use \`make -B\` to force rebuild changes if needed"
 
 # Update node modules if package.json is newer than node_modules or yarn lockfile
-# Use a mutex file so multiple Source dirs can be built in parallel.
 node_modules/.yarn-integrity: yarn.lock package.json
-	yarn install --mutex network
+	yarn install
 	touch $@
 
 .PHONY: bootstrap
@@ -58,7 +58,7 @@ serve: dev
 .PHONY: build
 build: bootstrap data changelog
 	@$(dotenv) -- $(monobase) build --project=. --path=$(BUILD_DIR)
-	@find $(BUILD_DIR) -name '*.html' | xargs $(node) ./api/linkify.ts
+	@find $(BUILD_DIR) -name '*.html' | xargs $(node) ./model/linkify.ts
 
 .PHONY: verify-api-references
 verify-api-references:
@@ -68,16 +68,25 @@ verify-api-references:
 publish: bootstrap data changelog
 	# Using /api for framer.com
 	@$(dotenv) -- $(monobase) build --project=. --path=build --prefix=/api
-	@$(node) ./api/linkify.ts build/api/**/*.html
+	@$(node) ./model/linkify.ts build/api/**/*.html
+	@$(cpy) '$(BUILD_DIR)/api/404.html' $(BUILD_DIR)
 
 .PHONY: publish-search
 publish-search:
 	@make publish
 	@make search
 
+.PHONY: publish-env
+publish-env:
+ifeq ($(CONTEXT),"production")
+	@make publish-search
+else
+	@make publish
+endif
+
 .PHONY: search
 search:
-	@$(dotenv) -- $(node) -O '{ "downlevelIteration": false }' ./api/searchify.ts
+	@$(dotenv) -- $(node) -O '{ "downlevelIteration": false }' ./model/searchify.ts
 
 .PHONY: clean
 clean:
@@ -85,7 +94,7 @@ clean:
 
 .PHONY: query
 query-data: data
-	@yarn ts-node ./api/query.ts '$(QUERY)'
+	@yarn ts-node ./model/query.ts '$(QUERY)'
 
 .PHONY: upgrade
 upgrade:
@@ -133,7 +142,7 @@ components/framer.data.ts: bootstrap $(wildcard api/*)
 			exit 1;\
 		fi;\
 	done
-	@cat <(printf "export default ") <($(node) ./api/generator.ts $(GENERATOR_DEPENDENCIES)) > "$@.tmp"
+	@cat <(printf "export default ") <($(node) ./model/generator.ts $(GENERATOR_DEPENDENCIES)) > "$@.tmp"
 	@mv -f "$@.tmp" "$@"
 
 pages/changelog.mdx: bootstrap node_modules/framer/CHANGELOG.md
@@ -146,6 +155,6 @@ pages/changelog.mdx: bootstrap node_modules/framer/CHANGELOG.md
 changelog: pages/changelog.mdx
 
 api/__fixtures__/example.data.ts: api/__fixtures__/example.api.json
-	@cat <(printf "export default ") <($(node) ./api/generator.ts $<) > "$@"
+	@cat <(printf "export default ") <($(node) ./model/generator.ts $<) > "$@"
 
 .DEFAULT_GOAL := usage
