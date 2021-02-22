@@ -48,7 +48,13 @@ export const MyComponent = () => (
 )
 ```
 
-Any component can be turned into a `motion` component with the `motion.custom` function. The provided component must pass `ref` to the underlying DOM element that is intended to be animated.
+<div>
+
+Any component can be turned into a `motion` component with the `motion.custom` function.
+
+Note that the provided component must pass `ref` to the underlying DOM element that is to be animated. `motion.custom` must not be called inside a React render function.
+
+</div>
 
 ```jsx
 const Component = React.forwardRef((props, ref) => (
