@@ -64,12 +64,12 @@ import { m } from "framer-motion"
 Instead, we load these in manually via the `LazyMotion` component. This lets you choose which features you load in, and whether you load them synchronously or asynchronously.
 
 ```jsx
-import { LazyMotion, domAnimations } from "framer-motion"
+import { LazyMotion, domAnimation } from "framer-motion"
 
-// Load only the domAnimations package
+// Load only the domAnimation package
 function App({ children }) {
   return (
-    <LazyMotion features={domAnimations}>
+    <LazyMotion features={domAnimation}>
       {children}
     </LazyMotion>
   )
@@ -80,7 +80,7 @@ function App({ children }) {
 
 There are currently two **feature packages** you can load:
 
-- `domAnimations`: This provides support for animations, variants, exit animations, and tap/hover/focus gestures. (~13kb)
+- `domAnimation`: This provides support for animations, variants, exit animations, and tap/hover/focus gestures. (~13kb)
 - `domMax`: This provides support for all of the above, plus pan/drag gestures and layout animations. (~18kb)
 
 In the future it might be possible to offer more granular feature packages, but for now these were chosen to reduce the amount of duplication between features, which could result in much more data being downloaded ultimately.
@@ -90,11 +90,11 @@ In the future it might be possible to offer more granular feature packages, but 
 By passing one of these feature packages to `LazyMotion`, they'll be bundled into your main JavaScript bundle.
 
 ```jsx
-import { LazyMotion, domAnimations } from "framer-motion"
+import { LazyMotion, domAnimation } from "framer-motion"
 
 function App({ children }) {
   return (
-    <LazyMotion features={domAnimations}>
+    <LazyMotion features={domAnimation}>
       {children}
     </LazyMotion>
   )
