@@ -45,6 +45,18 @@ export const MyComponent = ({ isVisible }) => (
 )
 ```
 
+### Other breaking changes
+
+`4` also removes `motion.custom()`, which was previously deprecated in favour of `motion()`.
+
+`motion.custom()` had the default behaviour of forwarding all of Framer Motion's props to the underlying component. To replicate this, the `forwardMotionProps` option can be used.
+
+```javascript
+const MotionComponent = motion(Component, {
+    forwardMotionProps: true
+})
+```
+
 
 ## 3.0
 
