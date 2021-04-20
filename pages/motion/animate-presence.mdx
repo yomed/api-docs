@@ -185,6 +185,11 @@ const Item = () => (
   </div>
 )
 
+/**
+ * The component being removed must be a direct
+ * descendant of AnimatePresence due to limitations
+ * with React.
+ */
 export const MyComponent = ({ items }) => (
   <AnimatePresence>
     {items.map(({ id }) => (
