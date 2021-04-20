@@ -170,6 +170,8 @@ const MyComponent = ({ isVisible }) => (
 
 The children of `AnimatePresence` can also be custom components. The only requirement is that somewhere within this component is at least one `motion` component with an `exit` prop.
 
+**Note:** The custom component being removed from the DOM must still be a **direct descendant** of `AnimatePresence`.
+
 </div>
 
 ```jsx
