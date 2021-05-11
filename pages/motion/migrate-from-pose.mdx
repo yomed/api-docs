@@ -369,17 +369,13 @@ One of the key limitations of the `flip` option in Pose was distorted content wi
 
 This occured because FLIP animations immediately switch to the new layout and then "undo" the layout change using transforms. It then animates to the new layout by animating the transform to `none`. So any content within here will look stretched and squashed.
 
-In Motion we can maintain the size and shape of children components with the `useInvertedScale` hook. This provides a `scaleX` and `scaleY` `MotionValue` that automatically compensates for the scale of the parent component.
+In Motion we can maintain the size and shape of children components by also giving them a `layout` prop.
 
 ```jsx
-const Text = () => {
-  const inverted = useInvertedScale()
-
-  return <motion.p style={inverted}>No distortion</motion.p>
-}
+<motion.div layout style={{ width: isOpen ? "100%" : 0 }}>
+  <motion.p layout>No distortion</motion.p>
+</motion.div>
 ```
-
-Depending on your layout you'll need to anchor the origin of this scale by choosing `originX` and `originY` points as the default transform origin of every component is `0.5`. For the effect to work you'll also need to ensure the component is in the same position for both layouts.
 
 ## PoseGroup
 
