@@ -1,4 +1,4 @@
-<!-- 👋 Editing this file? Need help? → https://github.com/framer/api-docs/blob/master/CONTRIBUTING.md -->
+<!-- 👋 Editing this file? Need help? → https://github.com/framer/legacy/docs-docs/blob/master/CONTRIBUTING.md -->
 
 import {
   Template,
@@ -6,6 +6,7 @@ import {
   Header,
   EmbeddedVideo,
   EmbeddedDemo,
+  Callout
 } from "../components"
 
 export default Template()
@@ -23,6 +24,12 @@ export default Template()
 </div>
 
 <Header />
+
+<Callout>
+
+This is legacy documentation, new Code Components in Framer no longer use the Framer Library—learn more about <a href="https://www.framer.com/docs/">migrating your old Code Components</a>.
+
+</Callout>
 
 <div className="followed-by-list">
 
@@ -132,7 +139,7 @@ To learn how to start using the Framer API within Framer, you can watch this sho
 
 Let’s have a look at a simple animation that scales a `Frame` to half the size. Notice how you can mix `Frame` elements with regular HTML, just like you would do within any React component.
 
-<CTA name="Learn More" link="/api/examples/#animate" />
+<CTA name="Learn More" link="/legacy/docs/examples/#animate" />
 
 </div>
 
@@ -166,7 +173,7 @@ export function MyComponent() {
 You can also use `useCycle` to cycle between sets of visual properties.
 Here, we’re also rotating the `Frame` on every tap, next to scaling it.
 
-<CTA name="Learn More" link="/api/examples/#cycle" />
+<CTA name="Learn More" link="/legacy/docs/examples/#cycle" />
 
 </div>
 
@@ -191,7 +198,7 @@ export function MyComponent() {
 You can easily make any `Frame` draggable by using the `drag` property.
 To constrain dragging to a vertical or horizontal axis, you can include an optional `"x"` or `"y"` value.
 
-<CTA name="Learn More" link="/api/examples/#dragging" />
+<CTA name="Learn More" link="/legacy/docs/examples/#dragging" />
 
 </div>
 
@@ -210,7 +217,7 @@ export function MyComponent() {
 
 For scrolling, you can wrap any content inside a `Scroll` component, which exceeds the size of the component either vertically or horizontally.
 
-<CTA name="Learn More" link="/api/examples/#scrolling" />
+<CTA name="Learn More" link="/legacy/docs/examples/#scrolling" />
 
 </div>
 

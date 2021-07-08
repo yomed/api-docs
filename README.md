@@ -4,24 +4,19 @@
     API Docs
 </h1>
 
-The official [Framer Library][#framer-library] & [Framer Motion](#framer-motion) documentation. It’s
+> **Notice:** This repository contains the [legacy documentation](https://www.framer.com/legacy/docs/), the [new documentation](https://www.framer.com/docs/) is closed source and can be found on the Framer site.
+
+The legacy [Framer Library][#framer-library] & [Framer Motion](#framer-motion) documentation. It’s
 a curated site that can pull in documentation from the [TSDoc][#tsdoc] comments in the project source.
-The foundation of the site is built on top of [Monobase][#monobase]. You can see the published
-website at [framer.com/api/][#website]
+The foundation of the site is built on top of [Monobase][#monobase].
 
 [#framer-library]: https://www.npmjs.com/package/framer
 [#framer-motion]: https://www.framer.com/motion/
 [#tsdoc]: https://github.com/Microsoft/tsdoc
 [#monobase]: https://github.com/koenbok/monobase/
-[#website]: https://framer.com/api/
+[#website]: https://framer.com/legacy/docs/
 
 <img src="https://misc.framerstatic.com/repos/api.png" />
-
-## Contributing
-
-If you're interested in contributing documentation check [Contributing](./CONTRIBUTING.md) for
-more details on adding and updating content. For hacking on the api-docs project itself
-read on.
 
 ## Installation
 
@@ -36,7 +31,7 @@ Clone the repository and install the dependencies:
 ```
 .
 ├── Makefile            # Build Scripts
-├── api                 # All files releated to generating framer.data.ts
+├── model                 # All files releated to generating framer.data.ts
 ├── components          # Holds all React components
 │   ├── Navigation.tsx  # The main site navigation
 │   ├── Template.tsx    # The main site template
@@ -73,11 +68,6 @@ also make a rudimentary check for missing models referenced by the API docs. The
 output will contain logs with the broken reference ids.
 
 [#jest]: https://jestjs.io
-
-## Submitting Changes
-
-Push changes up to a new branch in a fork of the api-docs repository (core team members can
-push directly to this repository) and open a Pull Request describing the changes.
 
 ## Deployment
 

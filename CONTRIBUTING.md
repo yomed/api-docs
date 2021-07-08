@@ -40,7 +40,7 @@ publishing the changes.
 
 #### Adding New Pages
 
-New pages can be added to the documentation by navigating to the **/pages/api** directory
+New pages can be added to the documentation by navigating to the **/pages** directory
 in the GitHub repository and clicking the "Create new file" button.
 
 ![Create New File](https://misc.framerstatic.com/repos/contributing/new-file-ui.png)
@@ -82,7 +82,7 @@ To toggle this on/off just press <kbd>ctrl-d</kbd>.
 
 We provide a number of React components that can document variables, functions
 and other entities from the codebase. Each component takes a `name` prop that
-refers to its contents. The [/debug](https://0.0.0.0:1234/api/debug/) page has a
+refers to its contents. The [/debug](https://0.0.0.0:1234/legacy/docs/debug/) page has a
 list of all the available API entities.
 
 The identifier should be compatible with the [TSDoc reference][#ref] format.

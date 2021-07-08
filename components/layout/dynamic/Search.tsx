@@ -425,7 +425,7 @@ const librarySuggestedResults: SearchResult[] = [
         title: "animate",
         secondaryTitle: "AnimationControls | TargetAndTransition | VariantLabels | boolean",
         description: "Values to animate to, variant label(s), or AnimationControls.",
-        href: "/api/frame/#animationprops.animate",
+        href: "/legacy/docs/frame/#animationprops.animate",
     },
     {
         type: "property",
@@ -435,7 +435,7 @@ const librarySuggestedResults: SearchResult[] = [
         secondaryTitle: 'boolean | "x" | "y"',
         description:
             'Enable dragging for this element. Set to false by default. Set true to drag in both directions. Set "x" or "y" to only drag in a specific direction.',
-        href: "/api/frame/#draggableprops.drag",
+        href: "/legacy/docs/frame/#draggableprops.drag",
     },
     {
         type: "page",
@@ -443,7 +443,7 @@ const librarySuggestedResults: SearchResult[] = [
         page: "Scroll",
         title: "Scroll",
         description: "Create scrollable areas for desktop or mobile, with mouse and touch-based input support.",
-        href: "/api/scroll/",
+        href: "/legacy/docs/scroll/",
     },
     {
         type: "page",
@@ -451,7 +451,7 @@ const librarySuggestedResults: SearchResult[] = [
         page: "Property Controls",
         title: "Property Controls",
         description: "Add controls to your components to allow customization via the Framer interface.",
-        href: "/api/property-controls/",
+        href: "/legacy/docs/property-controls/",
     },
 ]
 
@@ -462,7 +462,7 @@ const motionSuggestedResults: SearchResult[] = [
         page: "Motion components",
         title: "Motion components",
         description: "Motion components are DOM primitives optimised for 60fps animation and gestures.",
-        href: "/api/motion/component/",
+        href: "/legacy/docs/motion/component/",
     },
     {
         type: "page",
@@ -470,7 +470,7 @@ const motionSuggestedResults: SearchResult[] = [
         page: "MotionValue",
         title: "MotionValue",
         description: "MotionValues track the state and velocity of animating values.",
-        href: "/api/motion/motionvalue/",
+        href: "/legacy/docs/motion/motionvalue/",
     },
     {
         type: "subsection",
@@ -480,7 +480,7 @@ const motionSuggestedResults: SearchResult[] = [
         secondaryTitle: "Layout animations",
         description:
             "All layout animations are performed using the transform property, resulting in smooth framerates.",
-        href: "/api/motion/animation/#scale-correction",
+        href: "/legacy/docs/motion/animation/#scale-correction",
     },
     {
         type: "function",
@@ -490,7 +490,7 @@ const motionSuggestedResults: SearchResult[] = [
         secondaryTitle: "MotionValue",
         tertiaryTitle: "source, config",
         description: "Creates a MotionValue that, when set, will use a spring animation to animate to its new state.",
-        href: "/api/motion/motionvalue/#usespring",
+        href: "/legacy/docs/motion/motionvalue/#usespring",
     },
 ]
 

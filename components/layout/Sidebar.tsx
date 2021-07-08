@@ -9,8 +9,8 @@ import { isMotion } from "../utils/env"
 import { DynamicMobileToggle } from "./dynamic/MobileToggle"
 import { Logo } from "./Logo"
 
-const libraryUrl = "/api/"
-const motionUrl = "/api/motion/"
+const libraryUrl = "/legacy/docs/"
+const motionUrl = "/legacy/docs/motion/"
 
 const HeaderWrapper = styled.div`
     position: relative;

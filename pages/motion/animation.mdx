@@ -1,4 +1,4 @@
-<!-- 👋 Editing this file? Need help? → https://github.com/framer/api-docs/blob/master/CONTRIBUTING.md -->
+<!-- 👋 Editing this file? Need help? → https://github.com/framer/legacy/docs-docs/blob/master/CONTRIBUTING.md -->
 
 import {
   APIClass,
@@ -61,7 +61,7 @@ When any value in `animate` changes, the component will automatically animate to
 
 By default, Motion will create an appropriate animation for a snappy transition based on the types of value being animated. For instance, physical properties like `x` or `scale` will be animated via a spring simulation. Whereas values like `opacity` or `color` will be animated with a tween.
 
-However, you can set different types of animation by passing a [`Transition` to the `transition` prop](/api/motion/types#transition).
+However, you can set different types of animation by passing a [`Transition` to the `transition` prop](/legacy/docs/motion/types#transition).
 
 ```jsx
 <motion.div
@@ -247,7 +247,7 @@ return items.map((item, i) => (
 
 Declarative animations are ideal for most UI interactions. But sometimes we need to orchestrate more complex sequences.
 
-The `useAnimation` hook can be used to create a set of [imperative `AnimationControls`](/api/motion/types/#animationcontrols) with a `start` and `stop` method. These controls can be passed to **one or more** `motion` components via the `animate` prop.
+The `useAnimation` hook can be used to create a set of [imperative `AnimationControls`](/legacy/docs/motion/types/#animationcontrols) with a `start` and `stop` method. These controls can be passed to **one or more** `motion` components via the `animate` prop.
 
 ```jsx
 const MyComponent = () => {
