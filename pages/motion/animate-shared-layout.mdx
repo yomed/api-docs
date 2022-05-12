@@ -145,7 +145,7 @@ In this example, each item contains a `motion` component with a `layoutId="outli
 </div>
 
 ```jsx
-isSelected && <motion.div layoutId="underline" />
+isSelected && <motion.div layoutId="outline" />
 ```
 
 When a new component with a `layoutId` gets added as another gets removed, the component will perform a <Link href="/pages/motion/animation/#layout-animations">layout animation</Link> from previous component.
@@ -154,7 +154,7 @@ The new component will also inherit any animating values from the old component 
 
 ```jsx
 <motion.div
-  layoutId="underline"
+  layoutId="outline"
   initial={false}
   animate={{ backgroundColor: "#ff0000" }}
 />
